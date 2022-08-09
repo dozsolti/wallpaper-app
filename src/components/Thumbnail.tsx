@@ -4,6 +4,7 @@ import { commonStyles } from "../utils/commonStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
+import { SharedElement } from "react-navigation-shared-element";
 
 type Props = {};
 const Thumbnail: React.FC<Props> = () => {
@@ -13,16 +14,20 @@ const Thumbnail: React.FC<Props> = () => {
         <TouchableOpacity
             style={[commonStyles.marginRight5, styles.thumbnail]}
             onPress={() => {
-                //todo: shade element effect
-                navigation.navigate("Photo");
+                navigation.navigate("Photo", { item: { id: 1 } });
             }}>
-            <Image
-                source={{
-                    uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-                }}
-                style={[commonStyles.container, commonStyles.roundedSmall]}
-                resizeMode="cover"
-            />
+            <SharedElement
+                id={`item.1.photo`}
+                style={[commonStyles.container, commonStyles.roundedSmall]}>
+                <Image
+                    source={{
+                        uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+                    }}
+                    style={[commonStyles.container, commonStyles.roundedSmall]}
+                    resizeMode="cover"
+                />
+            </SharedElement>
+
             <LinearGradient
                 colors={["transparent", "rgba(0,0,0,0.8)"]}
                 style={[

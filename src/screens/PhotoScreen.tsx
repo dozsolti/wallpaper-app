@@ -5,9 +5,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
 import LikeModal from "../components/LikeModal";
+import { SharedElement } from "react-navigation-shared-element";
 
-const PhotoScreen = ({ navigation }) => {
+const PhotoScreen = ({ navigation, route }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const { item } = route.params;
 
     return (
         <>
@@ -71,13 +74,18 @@ const PhotoScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
-                <Image
-                    source={{
-                        uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-                    }}
+                <SharedElement
+                    id={`item.${item.id}.photo`}
                     style={[commonStyles.container]}
-                    resizeMode="cover"
-                />
+                    >
+                    <Image
+                        source={{
+                            uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+                        }}
+                        style={[commonStyles.container]}
+                        resizeMode="cover"
+                    />
+                </SharedElement>
             </View>
             <LikeModal
                 visible={isModalVisible}

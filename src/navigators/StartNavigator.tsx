@@ -1,6 +1,5 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import SelectInterestsScreen from "../screens/SelectInterestsScreen";
 
@@ -11,6 +10,10 @@ import PhotoScreen from "../screens/PhotoScreen";
 import InterestsScreen from "../screens/InterestsScreen";
 import MainNavigator from "./MainNavigator";
 
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+
+const Stack = createSharedElementStackNavigator();
+
 const MyTheme = {
     ...DefaultTheme,
     colors: {
@@ -19,7 +22,6 @@ const MyTheme = {
     },
 };
 
-const Stack = createNativeStackNavigator();
 
 const StartNavigator = () => {
     return (
@@ -31,7 +33,15 @@ const StartNavigator = () => {
                     component={SelectInterestsScreen}
                 />
                 <Stack.Screen name="Main" component={MainNavigator} />
-                <Stack.Screen name="Photo" component={PhotoScreen} />
+                <Stack.Screen
+                    name="Photo"
+                    component={PhotoScreen}
+                    
+                    sharedElements={(route, otherRoute, showing) => {
+                        const { item } = route.params;
+                        return [`item.${item.id}.photo`];
+                    }}
+                />
                 <Stack.Screen name="Interests" component={InterestsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
