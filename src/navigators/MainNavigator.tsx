@@ -1,18 +1,80 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FeedScreen from "../screens/FeedScreen";
 import { NO_HEADER } from "../utils/constants";
+import {
+    MaterialCommunityIcons,
+    MaterialIcons,
+    Ionicons,
+} from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
 function MainNavigator() {
     return (
         <Tab.Navigator screenOptions={NO_HEADER} initialRouteName="Feed">
-            {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-            {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
-            <Tab.Screen name="Feed"  component={FeedScreen} />
-            <Tab.Screen name="Search"  component={FeedScreen} />
-            <Tab.Screen name="Library"  component={FeedScreen} />
-            <Tab.Screen name="Settings"  component={FeedScreen} />
+            <Tab.Screen
+                name="Feed"
+                component={FeedScreen}
+                options={{
+                    tabBarLabel: "Feed",
+                    tabBarIcon: ({ color, focused }) => (
+                        <MaterialCommunityIcons
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                            size={26}
+                        />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Search"
+                component={FeedScreen}
+                options={{
+                    tabBarLabel: "Search",
+                    tabBarIcon: ({ color, focused }) =>
+                        focused ? (
+                            <MaterialCommunityIcons
+                                name="image-search"
+                                color={color}
+                                size={26}
+                            />
+                        ) : (
+                            <MaterialIcons
+                                name="search"
+                                color={color}
+                                size={26}
+                            />
+                        ),
+                }}
+            />
+            <Tab.Screen
+                name="Library"
+                component={FeedScreen}
+                options={{
+                    tabBarLabel: "Library",
+                    tabBarIcon: ({ color, focused }) => (
+                        <MaterialIcons
+                            name={focused ? "folder" : "folder-open"}
+                            color={color}
+                            size={26}
+                        />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Settings"
+                component={FeedScreen}
+                options={{
+                    tabBarLabel: "Settings",
+                    tabBarIcon: ({ color, focused }) => (
+                        <Ionicons 
+                            name={focused ? "settings" : "settings-outline"}
+                            color={color}
+                            size={26}
+                        />
+                    ),
+                }}
+            />
         </Tab.Navigator>
     );
 }
