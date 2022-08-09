@@ -6,6 +6,7 @@ import {
     MaterialIcons,
     Ionicons,
 } from "@expo/vector-icons";
+import SearchScreen from "../screens/SearchScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +29,7 @@ function MainNavigator() {
             />
             <Tab.Screen
                 name="Search"
-                component={FeedScreen}
+                component={SearchScreen}
                 options={{
                     tabBarLabel: "Search",
                     tabBarIcon: ({ color, focused }) =>

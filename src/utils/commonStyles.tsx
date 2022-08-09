@@ -36,6 +36,8 @@ export const commonStyles = StyleSheet.create({
 
     row: { flexDirection: "row" },
 
+    reversColumns: { flexDirection: "row-reverse" },
+
     spaceBetween: { justifyContent: "space-between" },
     spaceEvenly: { justifyContent: "space-evenly" },
     spaceAround: { justifyContent: "space-around" },

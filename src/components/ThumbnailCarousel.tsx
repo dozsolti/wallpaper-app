@@ -16,7 +16,7 @@ type Props = {
 };
 
 const renderItem = ({ item }) => {
-    return <Thumbnail />;
+    return <Thumbnail style={[commonStyles.marginRight5]} />;
 };
 
 const ThumbnailCarousel: React.FC<Props> = ({ title }) => {

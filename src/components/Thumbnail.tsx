@@ -6,13 +6,15 @@ import { colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
 import { SharedElement } from "react-navigation-shared-element";
 
-type Props = {};
-const Thumbnail: React.FC<Props> = () => {
+type Props = {
+    style?: any;
+};
+const Thumbnail: React.FC<Props> = ({ style = {} }) => {
     const navigation = useNavigation();
 
     return (
         <TouchableOpacity
-            style={[commonStyles.marginRight5, styles.thumbnail]}
+            style={[styles.thumbnail, style]}
             onPress={() => {
                 navigation.navigate("Photo", { item: { id: 1 } });
             }}>
