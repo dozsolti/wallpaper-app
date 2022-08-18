@@ -13,18 +13,28 @@ import Thumbnail from "./Thumbnail";
 
 type Props = {
     title: string;
+    onPressSeeAll?: () => void;
+    style?: any;
 };
 
 const renderItem = ({ item }) => {
     return <Thumbnail style={[commonStyles.marginRight5]} />;
 };
 
-const ThumbnailCarousel: React.FC<Props> = ({ title }) => {
+const ThumbnailCarousel: React.FC<Props> = ({
+    title,
+    onPressSeeAll = undefined,
+    style = {},
+}) => {
     const [first, setFirst] = React.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    const navigation = useNavigation();
+
     return (
         <View
-            style={[commonStyles.screenContainer, commonStyles.marginBottom4]}>
+            style={[
+                commonStyles.screenContainer,
+                commonStyles.marginBottom4,
+                style,
+            ]}>
             <View
                 style={[
                     commonStyles.row,
@@ -34,18 +44,17 @@ const ThumbnailCarousel: React.FC<Props> = ({ title }) => {
                 <Text style={[commonStyles.heading3, commonStyles.margin3]}>
                     {title}
                 </Text>
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate("Interests");
-                    }}>
-                    <Text
-                        style={[
-                            commonStyles.textSmall,
-                            { color: colors.darkestGray },
-                        ]}>
-                        SEE ALL
-                    </Text>
-                </TouchableOpacity>
+                {onPressSeeAll ? (
+                    <TouchableOpacity onPress={onPressSeeAll}>
+                        <Text
+                            style={[
+                                commonStyles.textSmall,
+                                { color: colors.darkestGray },
+                            ]}>
+                            SEE ALL
+                        </Text>
+                    </TouchableOpacity>
+                ) : null}
             </View>
             <FlatList
                 horizontal
