@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     thumbnail: {
         width: 120,
         height: 155,
+        aspectRatio: 120 / 155,
         overflow: "visible",
     },
     author: {

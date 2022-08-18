@@ -15,21 +15,6 @@ const renderItem = ({ item, index }) => {
             <View>
                 <Thumbnail style={[commonStyles.marginBottom4]} />
                 <Thumbnail />
-                {/* <Image
-                    source={{ uri: item[0].photo }}
-                    style={[
-                        { width: 120, height: 160 },
-                        commonStyles.marginBottom4,
-                        commonStyles.roundedSmall
-                    ]}
-                />
-                <Image
-                    source={{ uri: item[1].photo }}
-                    style={[
-                        { width: 120, height: 160 },
-                        commonStyles.roundedSmall,
-                    ]}
-                /> */}
             </View>
             <View
                 style={[
@@ -38,7 +23,12 @@ const renderItem = ({ item, index }) => {
                         ? commonStyles.marginRight4
                         : commonStyles.marginLeft4,
                 ]}>
-                <Thumbnail style={[{ width: "auto" }, commonStyles.fill]} />
+                <Thumbnail
+                    style={[
+                        { width: "auto", aspectRatio: null },
+                        commonStyles.fill,
+                    ]}
+                />
             </View>
         </View>
     );
