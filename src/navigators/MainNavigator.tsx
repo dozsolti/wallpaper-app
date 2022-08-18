@@ -7,6 +7,7 @@ import {
     Ionicons,
 } from "@expo/vector-icons";
 import SearchScreen from "../screens/SearchScreen";
+import LibraryScreen from "../screens/LibraryScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -50,7 +51,7 @@ function MainNavigator() {
             />
             <Tab.Screen
                 name="Library"
-                component={FeedScreen}
+                component={LibraryScreen}
                 options={{
                     tabBarLabel: "Library",
                     tabBarIcon: ({ color, focused }) => (
