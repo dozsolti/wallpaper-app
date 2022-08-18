@@ -8,6 +8,7 @@ import { NO_HEADER } from "../utils/constants";
 import { colors } from "../utils/colors";
 import PhotoScreen from "../screens/PhotoScreen";
 import InterestsScreen from "../screens/InterestsScreen";
+import LibraryPhotosScreen from "../screens/LibraryPhotosScreen";
 import MainNavigator from "./MainNavigator";
 
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
@@ -43,6 +44,7 @@ const StartNavigator = () => {
                     }}
                 />
                 <Stack.Screen name="Interests" component={InterestsScreen} />
+                <Stack.Screen name="LibraryPhotos" component={LibraryPhotosScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
