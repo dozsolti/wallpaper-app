@@ -24,6 +24,14 @@ export const commonStyles = StyleSheet.create({
         height: screenHeight,
     },
 
+    z0: { zIndex: 0 },
+    z1: { zIndex: 1 },
+    z2: { zIndex: 2 },
+    z3: { zIndex: 3 },
+    z4: { zIndex: 4 },
+    z5: { zIndex: 5 },
+    z6: { zIndex: 6 },
+
     widthScreen: { width: screenWidth },
     maxWidthScreen: { maxWidth: screenWidth },
 
