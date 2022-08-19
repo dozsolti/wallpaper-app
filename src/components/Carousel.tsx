@@ -40,7 +40,7 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
         <View
             style={[
                 commonStyles.widthScreen,
-                commonStyles.paddingHorizontal5,
+                commonStyles.paddingHorizontal6,
                 commonStyles.centerHorizontal,
                 // commonStyles.bordered,
                 { flexGrow: 1 },
@@ -48,12 +48,17 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
             <Image
                 source={item.image}
                 resizeMode="contain"
-                style={[commonStyles.square(330)]}
+                style={[commonStyles.square(300)]}
             />
             <Text style={[commonStyles.heading3, commonStyles.marginTop6]}>
                 {item.title}
             </Text>
-            <Text style={[commonStyles.text, commonStyles.textCenter, commonStyles.marginTop4]}>
+            <Text
+                style={[
+                    commonStyles.text,
+                    commonStyles.textCenter,
+                    commonStyles.marginTop4,
+                ]}>
                 {item.description}
             </Text>
         </View>
@@ -81,6 +86,7 @@ const Carousel = () => {
                 keyExtractor={(item, index) => index.toString()}
                 onViewableItemsChanged={onViewRef.current}
                 viewabilityConfig={viewConfigRef.current}
+                style={[commonStyles.marginTop3]}
             />
 
             <View style={[commonStyles.row, commonStyles.spaceAround]}>

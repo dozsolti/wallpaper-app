@@ -45,8 +45,8 @@ const LibraryPhotosScreen = ({ navigation }) => {
                     <TouchableOpacity
                         style={[
                             { position: "absolute" },
-                            // commonStyles.bordered,
                             commonStyles.padding2,
+                            commonStyles.z1,
                         ]}
                         onPress={() => navigation.goBack()}>
                         <MaterialCommunityIcons

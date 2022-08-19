@@ -68,13 +68,13 @@ const SearchScreen = () => {
     );
     return (
         <View style={[commonStyles.screenContainer]}>
-            <Text>Search Input</Text>
             <FlatList
                 data={images}
                 keyExtractor={(item, index) => index.toString()}
                 showsVerticalScrollIndicator={false}
                 overScrollMode="never"
                 renderItem={renderItem}
+                ListHeaderComponent={() => <Text>Search Input</Text>}
             />
         </View>
     );
