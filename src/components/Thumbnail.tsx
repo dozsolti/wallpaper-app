@@ -41,6 +41,7 @@ const Thumbnail: React.FC<Props> = ({ style = {} }) => {
             />
             <Author
                 name="Authorssssssss as dasa dad as"
+                disabled
                 containerStyle={[
                     commonStyles.absoluteBottom,
                     commonStyles.marginLeft4,
