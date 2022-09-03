@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
 import { SharedElement } from "react-navigation-shared-element";
+import Author from "./Author";
 
 type Props = {
     style?: any;
@@ -38,25 +39,19 @@ const Thumbnail: React.FC<Props> = ({ style = {} }) => {
                     commonStyles.heightHalf,
                 ]}
             />
-            <View
-                style={[
+            <Author
+                name="Authorssssssss as dasa dad as"
+                containerStyle={[
                     commonStyles.absoluteBottom,
-                    commonStyles.row,
-                    commonStyles.margin4,
-                ]}>
-                <Image
-                    source={{ uri: "https://picsum.photos/200/300" }}
-                    style={[
-                        commonStyles.rounded,
-                        commonStyles.square(22),
-                        commonStyles.marginRight4,
-                    ]}
-                    resizeMode="cover"
-                />
-                <Text numberOfLines={1} style={styles.author}>
-                    Author name
-                </Text>
-            </View>
+                    commonStyles.marginLeft4,
+                    commonStyles.marginBottom2,
+                ]}
+                avatarStyle={[
+                    commonStyles.marginRight4,
+                    commonStyles.square(22),
+                ]}
+                textStyle={[commonStyles.text, commonStyles.fill]}
+            />
         </TouchableOpacity>
     );
 };

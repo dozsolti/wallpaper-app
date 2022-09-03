@@ -5,6 +5,7 @@ import { colors } from "../utils/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LikeModal from "../components/LikeModal";
+import Author from "../components/Author";
 
 const renderItem = ({ item }) => {
     return (
@@ -106,26 +107,7 @@ const InterestsScreen = ({ navigation }) => {
                         commonStyles.margin5,
                         { zIndex: 1 },
                     ]}>
-                    <TouchableOpacity
-                        style={[commonStyles.row, commonStyles.container]}>
-                        <Image
-                            source={{ uri: "https://picsum.photos/200/300" }}
-                            style={[
-                                commonStyles.rounded,
-                                commonStyles.square(32),
-                                commonStyles.marginRight5,
-                            ]}
-                            resizeMode="cover"
-                        />
-                        <Text
-                            numberOfLines={1}
-                            style={[
-                                commonStyles.heading3,
-                                { color: colors.background },
-                            ]}>
-                            Author name
-                        </Text>
-                    </TouchableOpacity>
+                    <Author name="Author" />
 
                     <TouchableOpacity
                         onPress={() => setIsModalVisible(true)}

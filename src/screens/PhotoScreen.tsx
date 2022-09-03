@@ -6,6 +6,7 @@ import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
 import LikeModal from "../components/LikeModal";
 import { SharedElement } from "react-navigation-shared-element";
+import Author from "../components/Author";
 
 const PhotoScreen = ({ navigation, route }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -44,26 +45,7 @@ const PhotoScreen = ({ navigation, route }) => {
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={[commonStyles.row, commonStyles.container]}>
-                        <Image
-                            source={{ uri: "https://picsum.photos/200/300" }}
-                            style={[
-                                commonStyles.rounded,
-                                commonStyles.square(32),
-                                commonStyles.marginRight5,
-                            ]}
-                            resizeMode="cover"
-                        />
-                        <Text
-                            numberOfLines={1}
-                            style={[
-                                commonStyles.heading3,
-                                { color: colors.background },
-                            ]}>
-                            Author name
-                        </Text>
-                    </TouchableOpacity>
+                    <Author name="Author" />
 
                     <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                         <MaterialCommunityIcons
@@ -76,8 +58,7 @@ const PhotoScreen = ({ navigation, route }) => {
 
                 <SharedElement
                     id={`item.${item.id}.photo`}
-                    style={[commonStyles.container]}
-                    >
+                    style={[commonStyles.container]}>
                     <Image
                         source={{
                             uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
