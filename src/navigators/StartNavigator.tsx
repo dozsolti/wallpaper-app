@@ -12,6 +12,7 @@ import LibraryPhotosScreen from "../screens/LibraryPhotosScreen";
 import MainNavigator from "./MainNavigator";
 
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const Stack = createSharedElementStackNavigator();
 
@@ -23,28 +24,33 @@ const MyTheme = {
     },
 };
 
-
 const StartNavigator = () => {
     return (
         <NavigationContainer theme={MyTheme}>
-            <Stack.Navigator screenOptions={NO_HEADER}>
+            <Stack.Navigator screenOptions={NO_HEADER} initialRouteName="Main">
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen
                     name="SelectInterests"
                     component={SelectInterestsScreen}
                 />
-                <Stack.Screen name="Main" component={MainNavigator} />
+                <Stack.Screen
+                    name="Main"
+                    component={MainNavigator}
+                />
                 <Stack.Screen
                     name="Photo"
                     component={PhotoScreen}
-                    
                     sharedElements={(route, otherRoute, showing) => {
                         const { item } = route.params;
                         return [`item.${item.id}.photo`];
                     }}
                 />
                 <Stack.Screen name="Interests" component={InterestsScreen} />
-                <Stack.Screen name="LibraryPhotos" component={LibraryPhotosScreen} />
+                <Stack.Screen
+                    name="LibraryPhotos"
+                    component={LibraryPhotosScreen}
+                />
+                <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
