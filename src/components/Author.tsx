@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type Props = {
     name: string;
@@ -21,13 +22,13 @@ const Author: React.FC<Props> = ({
     avatarStyle = {},
     textStyle = {},
 }) => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<any>>();
 
     return (
         <TouchableOpacity
             disabled={disabled}
             onPress={() => {
-                navigation.navigate("Profile", {});
+                navigation.push("Profile", {});
             }}
             style={[commonStyles.row, commonStyles.container, containerStyle]}>
             <Image

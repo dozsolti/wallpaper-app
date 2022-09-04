@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
     FlatList,
@@ -17,7 +16,7 @@ type Props = {
     style?: any;
 };
 
-const renderItem = ({ item }) => {
+const renderItem = ({ item }: { item: any }) => {
     return <Thumbnail style={[commonStyles.marginRight5]} />;
 };
 

@@ -3,6 +3,7 @@ import { ScrollView, View, Text } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Chip from "../components/Chip";
 import Button from "../components/Button";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const interests = [
     "Art",
@@ -25,8 +26,13 @@ const interests = [
     "War",
 ];
 
-const SelectInterestsScreen = ({ navigation }) => {
-    const [selectedInterests, setSelectedInterests] = React.useState([]);
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
+    const [selectedInterests, setSelectedInterests] = React.useState<string[]>(
+        []
+    );
 
     const onPress = (interest: string) => {
         const newInterests = selectedInterests.slice();

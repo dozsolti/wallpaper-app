@@ -1,5 +1,4 @@
 import React from "react";
-import { commonStyles } from "../utils/commonStyles";
 import ThumbnailCarousel from "./ThumbnailCarousel";
 
 export const ListCollections = () => {

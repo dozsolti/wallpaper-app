@@ -1,9 +1,13 @@
-import { View, Text, ScrollView } from "react-native";
 import React from "react";
+import { Text, ScrollView } from "react-native";
 import ThumbnailCarousel from "../components/ThumbnailCarousel";
 import { commonStyles } from "../utils/commonStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const LibraryScreen = ({ navigation }) => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const LibraryScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <ScrollView overScrollMode="never">
             <Text

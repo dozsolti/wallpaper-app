@@ -6,8 +6,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LikeModal from "../components/LikeModal";
 import Author from "../components/Author";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const renderItem = ({ item }) => {
+const renderItem = ({ item }: { item: any }) => {
     return (
         <View>
             <Image
@@ -20,8 +21,10 @@ const renderItem = ({ item }) => {
         </View>
     );
 };
-
-const InterestsScreen = ({ navigation }) => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const InterestsScreen: React.FC<Props> = ({ navigation }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     return (

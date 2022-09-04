@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, Image, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { SharedElement } from "react-navigation-shared-element";
 import Author from "./Author";
 
@@ -12,7 +13,7 @@ type Props = {
     style?: any;
 };
 const Thumbnail: React.FC<Props> = ({ showAuthor = true, style = {} }) => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<any>>();
 
     return (
         <TouchableOpacity

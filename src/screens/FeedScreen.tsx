@@ -1,9 +1,13 @@
-import { View, Text, ScrollView } from "react-native";
 import React from "react";
+import { Text, ScrollView } from "react-native";
 import ThumbnailCarousel from "../components/ThumbnailCarousel";
 import { commonStyles } from "../utils/commonStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const FeedScreen = () => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const FeedScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <ScrollView overScrollMode="never">
             <Text
@@ -14,7 +18,12 @@ const FeedScreen = () => {
                 ]}>
                 Wallpapers
             </Text>
-            <ThumbnailCarousel title="Art" />
+            <ThumbnailCarousel
+                title="Art"
+                onPressSeeAll={() => {
+                    navigation.push("Interests");
+                }}
+            />
             <ThumbnailCarousel title="Food" />
             <ThumbnailCarousel title="Nature" />
             <ThumbnailCarousel title="People" />

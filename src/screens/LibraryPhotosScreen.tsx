@@ -13,8 +13,9 @@ import {
     Ionicons,
 } from "@expo/vector-icons";
 import Thumbnail from "../components/Thumbnail";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const renderItem = ({ item, index }) => {
+const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
         <Thumbnail
             style={[
@@ -26,7 +27,10 @@ const renderItem = ({ item, index }) => {
     );
 };
 
-const LibraryPhotosScreen = ({ navigation }) => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const LibraryPhotosScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <FlatList
             data={[

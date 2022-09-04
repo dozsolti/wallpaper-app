@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FlatList, Text, View, Image } from "react-native";
+import { FlatList, Text, View, Image, ViewToken } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Bullet from "./Bullet";
 
@@ -68,8 +68,8 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
 const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const onViewRef = useRef(({ changed }) => {
-        setCurrentIndex(changed[0].index);
+    const onViewRef = useRef(({ changed }: { changed: ViewToken[] }) => {
+        if (changed[0].index) setCurrentIndex(changed[0].index);
     });
     const viewConfigRef = React.useRef({
         viewAreaCoveragePercentThreshold: 50,

@@ -1,10 +1,14 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Carousel from "../components/Carousel";
 import Button from "../components/Button";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const WelcomeScreen = ({ navigation }) => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <View style={[commonStyles.container]}>
             <Carousel />

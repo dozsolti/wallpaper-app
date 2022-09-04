@@ -7,8 +7,14 @@ import { colors } from "../utils/colors";
 import LikeModal from "../components/LikeModal";
 import { SharedElement } from "react-navigation-shared-element";
 import Author from "../components/Author";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const PhotoScreen = ({ navigation, route }) => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+    route: any
+};
+
+const PhotoScreen: React.FC<Props>  = ({ navigation, route }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const { item } = route.params;

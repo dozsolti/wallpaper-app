@@ -4,7 +4,7 @@ import { FlatList } from "react-native-gesture-handler";
 import Thumbnail from "../components/Thumbnail";
 import { commonStyles } from "../utils/commonStyles";
 
-const renderItem = ({ item, index }) => {
+const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
         <View
             style={[
@@ -60,11 +60,11 @@ const SearchScreen = () => {
             {
                 photo: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
             },
-        ].reduce((all, one, i) => {
+        ].reduce((all, one: any, i) => {
             const ch = Math.floor(i / 3);
             all[ch] = [].concat(all[ch] || [], one);
             return all;
-        }, [])
+        }, Array<any>())
     );
     return (
         <View style={[commonStyles.screenContainer]}>

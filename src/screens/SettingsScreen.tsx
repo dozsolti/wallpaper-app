@@ -1,15 +1,16 @@
+import React from "react";
 import {
-    View,
     Text,
     ScrollView,
-    Touchable,
     TouchableOpacity,
 } from "react-native";
-import React from "react";
-import ThumbnailCarousel from "../components/ThumbnailCarousel";
 import { commonStyles } from "../utils/commonStyles";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const SettingsScreen = ({ navigation }) => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+const SettingsScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <ScrollView
             overScrollMode="never"
@@ -24,14 +25,12 @@ const SettingsScreen = ({ navigation }) => {
                 Settings
             </Text>
             <TouchableOpacity>
-                <Text
-                    style={[commonStyles.text, commonStyles.marginBottom6]}>
+                <Text style={[commonStyles.text, commonStyles.marginBottom6]}>
                     • Manage interests
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity>
-                <Text
-                    style={[commonStyles.text, commonStyles.marginBottom6]}>
+                <Text style={[commonStyles.text, commonStyles.marginBottom6]}>
                     • Clear all data
                 </Text>
             </TouchableOpacity>

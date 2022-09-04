@@ -3,7 +3,7 @@ import { FlatList, ScrollView } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Thumbnail from "./Thumbnail";
 
-const renderItem = ({ item, index }) => {
+const renderItem = ({ item, index }: { item: any; index: number }) => {
     return (
         <Thumbnail
             showAuthor={false}

@@ -8,17 +8,19 @@ import {
 } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
-import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import LikeModal from "../components/LikeModal";
-import Author from "../components/Author";
 import Tabs from "../components/Tabs";
-import Thumbnail from "../components/Thumbnail";
 import { ScrollView } from "react-native-gesture-handler";
 import { ListPhotos } from "../components/ListPhotos";
 import { ListCollections } from "../components/ListCollections";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const ProfileScreen = ({ navigation }) => {
+
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+
+const ProfileScreen: React.FC<Props> = ({ navigation }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     return (
