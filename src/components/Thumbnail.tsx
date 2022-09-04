@@ -8,16 +8,17 @@ import { SharedElement } from "react-navigation-shared-element";
 import Author from "./Author";
 
 type Props = {
+    showAuthor?: boolean;
     style?: any;
 };
-const Thumbnail: React.FC<Props> = ({ style = {} }) => {
+const Thumbnail: React.FC<Props> = ({ showAuthor = true, style = {} }) => {
     const navigation = useNavigation();
 
     return (
         <TouchableOpacity
             style={[styles.thumbnail, style]}
             onPress={() => {
-                navigation.navigate("Photo", { item: { id: 1 } });
+                navigation.push("Photo", { item: { id: 1 } });
             }}>
             <SharedElement
                 id={`item.1.photo`}
@@ -31,28 +32,32 @@ const Thumbnail: React.FC<Props> = ({ style = {} }) => {
                 />
             </SharedElement>
 
-            <LinearGradient
-                colors={["transparent", "rgba(0,0,0,0.8)"]}
-                style={[
-                    commonStyles.absoluteBottom,
-                    commonStyles.roundedSmall,
-                    commonStyles.heightHalf,
-                ]}
-            />
-            <Author
-                name="Authorssssssss as dasa dad as"
-                disabled
-                containerStyle={[
-                    commonStyles.absoluteBottom,
-                    commonStyles.marginLeft4,
-                    commonStyles.marginBottom2,
-                ]}
-                avatarStyle={[
-                    commonStyles.marginRight4,
-                    commonStyles.square(22),
-                ]}
-                textStyle={[commonStyles.text, commonStyles.fill]}
-            />
+            {showAuthor ? (
+                <>
+                    <LinearGradient
+                        colors={["transparent", "rgba(0,0,0,0.8)"]}
+                        style={[
+                            commonStyles.absoluteBottom,
+                            commonStyles.roundedSmall,
+                            commonStyles.heightHalf,
+                        ]}
+                    />
+                    <Author
+                        name="Authorssssssss as dasa dad as"
+                        disabled
+                        containerStyle={[
+                            commonStyles.absoluteBottom,
+                            commonStyles.marginLeft4,
+                            commonStyles.marginBottom2,
+                        ]}
+                        avatarStyle={[
+                            commonStyles.marginRight4,
+                            commonStyles.square(22),
+                        ]}
+                        textStyle={[commonStyles.text, commonStyles.fill]}
+                    />
+                </>
+            ) : null}
         </TouchableOpacity>
     );
 };
