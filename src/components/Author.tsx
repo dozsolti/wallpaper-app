@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 type Props = {
-    name: string;
+    name: string | undefined;
     profilePicture?: string;
     disabled?: boolean;
     containerStyle?: any;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Author: React.FC<Props> = ({
-    name,
+    name = "-",
     profilePicture = "https://picsum.photos/200/300",
     disabled = false,
     containerStyle = {},
@@ -31,7 +31,7 @@ const Author: React.FC<Props> = ({
                 navigation.push("Profile", {});
             }}
             style={[commonStyles.row, commonStyles.container, containerStyle]}>
-            <Image
+            {/* <Image
                 source={{ uri: profilePicture }}
                 style={[
                     commonStyles.rounded,
@@ -40,7 +40,7 @@ const Author: React.FC<Props> = ({
                     avatarStyle,
                 ]}
                 resizeMode="cover"
-            />
+            /> */}
             <Text
                 numberOfLines={1}
                 style={[

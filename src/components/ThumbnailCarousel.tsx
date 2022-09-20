@@ -6,22 +6,25 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import { Photo } from "../models/Photo";
 import { colors } from "../utils/colors";
 import { commonStyles } from "../utils/commonStyles";
 import Thumbnail from "./Thumbnail";
 
 type Props = {
     title: string;
+    photos: Photo[];
     onPressSeeAll?: () => void;
     style?: any;
 };
 
-const renderItem = ({ item }: { item: any }) => {
-    return <Thumbnail style={[commonStyles.marginRight5]} />;
+const renderItem = ({ item }: { item: Photo }) => {
+    return <Thumbnail photo={item} style={[commonStyles.marginRight5]} />;
 };
 
 const ThumbnailCarousel: React.FC<Props> = ({
     title,
+    photos = [],
     onPressSeeAll = undefined,
     style = {},
 }) => {
@@ -59,8 +62,8 @@ const ThumbnailCarousel: React.FC<Props> = ({
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 overScrollMode="never"
-                data={first}
-                keyExtractor={(item) => item.toString()}
+                data={photos}
+                keyExtractor={(item) => 'thumbnailCarousel-'+title+'-thumbnail-'+item.id}
                 renderItem={renderItem}
                 style={[{ overflow: "visible" }]}
             />

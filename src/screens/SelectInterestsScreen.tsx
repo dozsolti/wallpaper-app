@@ -4,45 +4,43 @@ import { commonStyles } from "../utils/commonStyles";
 import Chip from "../components/Chip";
 import Button from "../components/Button";
 import { StackNavigationProp } from "@react-navigation/stack";
-
-const interests = [
-    "Art",
-    "Business",
-    "Culture",
-    "Education",
-    "Environment",
-    "Health",
-    "Human rights",
-    "Humanitarian",
-    "Humanities",
-    "International",
-    "Law",
-    "Politics",
-    "Science",
-    "Social",
-    "Sport",
-    "Technology",
-    "Transport",
-    "War",
-];
+import { Interest } from "../models/Interest";
+import { ALL_INTERESTS } from "../utils/constants";
+import { useStoreActions } from "../store/store";
 
 type Props = {
     navigation: StackNavigationProp<any>;
 };
 const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
-    const [selectedInterests, setSelectedInterests] = React.useState<string[]>(
-        []
-    );
+    const [selectedInterests, setSelectedInterests] = React.useState<
+        Interest[]
+    >([]);
 
-    const onPress = (interest: string) => {
-        const newInterests = selectedInterests.slice();
-        const interestIndex = newInterests.indexOf(interest);
-        if (interestIndex === -1) {
-            newInterests.push(interest);
-        } else {
-            newInterests.splice(interestIndex, 1);
-        }
-        setSelectedInterests(newInterests);
+    const setInterests = useStoreActions((actions) => actions.setInterests);
+
+    const isSelected = (interestId: string) => {
+        return selectedInterests.findIndex((x) => x.id == interestId) != -1;
+    };
+
+    const toggleInterest = (interest: Interest) => {
+        setSelectedInterests((interests) => {
+            const interestIndex = interests.findIndex(
+                (x) => x.id == interest.id
+            );
+
+            if (interestIndex === -1) {
+                interests = [...interests, interest];
+            } else {
+                interests = interests.filter((_, i) => i != interestIndex);
+            }
+
+            return interests;
+        });
+    };
+
+    const goNext = () => {
+        setInterests(selectedInterests);
+        navigation.navigate("Main");
     };
 
     return (
@@ -60,13 +58,13 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
                         { flex: 1, flexDirection: "row", flexWrap: "wrap" },
                         commonStyles.marginTop5,
                     ]}>
-                    {interests.map((interest, index) => (
+                    {ALL_INTERESTS.map((interest, index) => (
                         <Chip
                             key={index}
-                            text={interest}
+                            text={interest.name}
                             style={commonStyles.margin3}
-                            active={selectedInterests.includes(interest)}
-                            onPress={() => onPress(interest)}
+                            active={isSelected(interest.id)}
+                            onPress={() => toggleInterest(interest)}
                         />
                     ))}
                 </View>
@@ -82,10 +80,8 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
                 <Button
                     text="Start"
                     fluid
-                    disabled={selectedInterests.length < 5}
-                    onPress={() => {
-                        navigation.navigate("Main");
-                    }}
+                    // disabled={selectedInterests.length < 5}
+                    onPress={goNext}
                 />
             </View>
         </>
