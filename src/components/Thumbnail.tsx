@@ -76,10 +76,10 @@ const Thumbnail: React.FC<Props> = ({
         <TouchableOpacity
             style={[styles.thumbnail, style]}
             onPress={() => {
-                navigation.push("Photo", { item: { id: photo.id } });
+                navigation.push("Photo", { photo });
             }}>
             <SharedElement
-                id={`item.${photo.id}.photo`}
+                id={`photo-${photo.id}`}
                 style={[commonStyles.container, commonStyles.roundedSmall]}>
                 <Image
                     source={{ uri: photo.previewUrl }}

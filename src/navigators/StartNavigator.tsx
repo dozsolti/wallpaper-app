@@ -27,7 +27,7 @@ const MyTheme = {
 const StartNavigator = () => {
     return (
         <NavigationContainer theme={MyTheme}>
-            <Stack.Navigator screenOptions={NO_HEADER} initialRouteName="Main">
+            <Stack.Navigator screenOptions={NO_HEADER}>
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen
                     name="SelectInterests"
@@ -41,8 +41,8 @@ const StartNavigator = () => {
                     name="Photo"
                     component={PhotoScreen}
                     sharedElements={(route, otherRoute, showing) => {
-                        const { item } = route.params;
-                        return [`item.${item.id}.photo`];
+                        const { photo } = route.params;
+                        return [`photo-${photo.id}`];
                     }}
                 />
                 <Stack.Screen name="Interests" component={InterestsScreen} />

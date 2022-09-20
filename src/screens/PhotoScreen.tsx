@@ -8,16 +8,17 @@ import LikeModal from "../components/LikeModal";
 import { SharedElement } from "react-navigation-shared-element";
 import Author from "../components/Author";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Photo } from "../models/Photo";
 
 type Props = {
     navigation: StackNavigationProp<any>;
-    route: any
+    route: any;
 };
 
-const PhotoScreen: React.FC<Props>  = ({ navigation, route }) => {
+const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const { item } = route.params;
+    const { photo }: { photo: Photo } = route.params;
 
     return (
         <>
@@ -51,7 +52,7 @@ const PhotoScreen: React.FC<Props>  = ({ navigation, route }) => {
                         />
                     </TouchableOpacity>
 
-                    <Author name="Author" />
+                    <Author name={photo.author?.name} />
 
                     <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                         <MaterialCommunityIcons
@@ -63,12 +64,10 @@ const PhotoScreen: React.FC<Props>  = ({ navigation, route }) => {
                 </View>
 
                 <SharedElement
-                    id={`item.${item.id}.photo`}
+                    id={`photo-${photo.id}`}
                     style={[commonStyles.container]}>
                     <Image
-                        source={{
-                            uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-                        }}
+                        source={{ uri: photo.previewUrl }}
                         style={[commonStyles.container]}
                         resizeMode="cover"
                     />
