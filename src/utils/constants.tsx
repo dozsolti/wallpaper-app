@@ -2,7 +2,6 @@ import { Interest } from "../models/Interest";
 
 export const NO_HEADER = { headerShown: false };
 
-
 export const ALL_INTERESTS = [
     new Interest("Art"),
     new Interest("Business"),
