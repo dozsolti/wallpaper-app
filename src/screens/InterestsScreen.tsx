@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+    View,
+    Text,
+    Image,
+    FlatList,
+    ToastAndroid,
+    TouchableOpacity,
+    ViewToken,
+} from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
 import { LinearGradient } from "expo-linear-gradient";
@@ -7,25 +15,59 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LikeModal from "../components/LikeModal";
 import Author from "../components/Author";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Interest } from "../models/Interest";
+import { Photo } from "../models/Photo";
+import PhotoService from "../services/PhotoService";
 
-const renderItem = ({ item }: { item: any }) => {
+const renderItem = ({ item }: { item: Photo }) => {
     return (
         <View>
             <Image
                 source={{
-                    uri: item.uri,
+                    uri: item.previewUrl,
                 }}
                 style={[commonStyles.fullScreen]}
-                resizeMode="cover"
+                resizeMode="contain"
             />
         </View>
     );
 };
 type Props = {
     navigation: StackNavigationProp<any>;
+    route: any;
 };
-const InterestsScreen: React.FC<Props> = ({ navigation }) => {
+const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
+    const pageNumber = useRef(0);
+    const [photos, setPhotos] = useState<Photo[]>([]);
+
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const onViewRef = useRef(({ changed }: { changed: ViewToken[] }) => {
+        if (changed[0].index) setCurrentIndex(changed[0].index);
+    });
+    const viewConfigRef = React.useRef({
+        viewAreaCoveragePercentThreshold: 50,
+    });
+
+    const {
+        interest,
+        photos: oldPhotos,
+    }: { interest: Interest; photos: Photo[] } = route.params;
+
+    useEffect(() => {
+        setPhotos(oldPhotos);
+    }, [oldPhotos]);
+
+    const loadMorePhotos = async () => {
+        ToastAndroid.show("Loading more...", ToastAndroid.SHORT);
+        pageNumber.current++;
+        const photos = await PhotoService.getPhotosByInterestId(
+            interest.id,
+            pageNumber.current
+        );
+        setPhotos((v) => [...v, ...photos]);
+    };
 
     return (
         <>
@@ -68,28 +110,24 @@ const InterestsScreen: React.FC<Props> = ({ navigation }) => {
                                 commonStyles.heading3,
                                 { color: colors.background },
                             ]}>
-                            Sports
+                            {interest.name}
                         </Text>
                     </View>
                 </View>
                 <FlatList
-                    data={[
-                        {
-                            uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-                        },
-                        {
-                            uri: "https://images.unsplash.com/photo-1659785814117-a9b958b06d81?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-                        },
-                        {
-                            uri: "https://images.unsplash.com/photo-1659612960863-05b209f7b036?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=800",
-                        },
-                    ]}
+                    data={photos}
                     renderItem={renderItem}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(item, index) =>
+                        `interest-${interest.id}-photo-${item.id}-${index}`
+                    }
                     pagingEnabled
                     snapToAlignment="center"
                     overScrollMode="never"
                     style={[{ flexGrow: 0 }]}
+                    onViewableItemsChanged={onViewRef.current}
+                    viewabilityConfig={viewConfigRef.current}
+                    onEndReachedThreshold={1}
+                    onEndReached={loadMorePhotos}
                 />
 
                 <LinearGradient
@@ -110,7 +148,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation }) => {
                         commonStyles.margin5,
                         { zIndex: 1 },
                     ]}>
-                    <Author name="Author" />
+                    <Author name={photos[currentIndex]?.author.name} />
 
                     <TouchableOpacity
                         onPress={() => setIsModalVisible(true)}
