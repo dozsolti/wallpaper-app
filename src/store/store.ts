@@ -9,7 +9,7 @@ interface StoreModel {
 export const store = createStore<StoreModel>({
     interests: [],
     setInterests: action((state, selectedInterests) => {
-        state.interests = selectedInterests;
+        state.interests = selectedInterests.sort(Interest.SORT_ALPHABETICAL);
     }),
 });
 

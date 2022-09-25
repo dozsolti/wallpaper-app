@@ -8,4 +8,10 @@ export class Interest {
         this.id = toSlugCase(name);
         this.name = name;
     }
+
+    static SORT_ALPHABETICAL(a: Interest, b: Interest) {
+        if (!a) return 1;
+        if (!b) return -1;
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    }
 }
