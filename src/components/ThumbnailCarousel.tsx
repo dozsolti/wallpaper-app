@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    ActivityIndicator,
     FlatList,
     StyleSheet,
     Text,
@@ -14,6 +15,7 @@ import Thumbnail from "./Thumbnail";
 type Props = {
     title: string;
     photos: Photo[];
+    isLoading?: boolean;
     onPressSeeAll?: () => void;
     style?: any;
 };
@@ -25,11 +27,10 @@ const renderItem = ({ item }: { item: Photo }) => {
 const ThumbnailCarousel: React.FC<Props> = ({
     title,
     photos = [],
+    isLoading = false,
     onPressSeeAll = undefined,
     style = {},
 }) => {
-    const [first, setFirst] = React.useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-
     return (
         <View
             style={[
@@ -58,15 +59,30 @@ const ThumbnailCarousel: React.FC<Props> = ({
                     </TouchableOpacity>
                 ) : null}
             </View>
-            <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                overScrollMode="never"
-                data={photos}
-                keyExtractor={(item) => 'thumbnailCarousel-'+title+'-thumbnail-'+item.id}
-                renderItem={renderItem}
-                style={[{ overflow: "visible" }]}
-            />
+            {isLoading ? (
+                <FlatList
+                    horizontal
+                    data={new Array(5)}
+                    keyExtractor={(item, index) =>
+                        `loading-thumbnailCarousel-${title}-thumbnail-${index}`
+                    }
+                    renderItem={() => (
+                        <Thumbnail style={[commonStyles.marginRight5]} />
+                    )}
+                />
+            ) : (
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    overScrollMode="never"
+                    data={photos}
+                    keyExtractor={(item) =>
+                        `thumbnailCarousel-${title}-thumbnail-${item.id}`
+                    }
+                    renderItem={renderItem}
+                    style={[{ overflow: "visible" }]}
+                />
+            )}
         </View>
     );
 };

@@ -4,7 +4,7 @@ export class Photo {
     id: string;
 
     previewUrl: string;
-    author: Author | null;
+    author: Author;
 
     constructor({
         id,
@@ -12,7 +12,7 @@ export class Photo {
         author,
     }: {
         id: string;
-        author: Author | null;
+        author: Author;
         previewUrl: string;
     }) {
         this.id = id;
