@@ -82,7 +82,8 @@ const SearchScreen = () => {
                     onChangeText={setQuery}
                     value={query}
                     onSubmitEditing={doSearch}
-                    placeholder="Search for anything"
+                    placeholder="Type anything"
+                    autoFocus={true}
                     style={[
                         commonStyles.padding4,
                         commonStyles.paddingHorizontal5,
@@ -91,7 +92,9 @@ const SearchScreen = () => {
                         { width: "100%" } /* todo this in commonStyles */,
                         {
                             color: colors.black,
-                            backgroundColor: colors.darkerGray,
+                            backgroundColor: colors.gray,
+                            borderWidth: 1,
+                            borderColor: colors.darkerGray,
                         },
                     ]}
                 />

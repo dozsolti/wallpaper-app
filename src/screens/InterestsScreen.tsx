@@ -27,7 +27,7 @@ const renderItem = ({ item }: { item: Photo }) => {
                     uri: item.previewUrl,
                 }}
                 style={[commonStyles.fullScreen]}
-                resizeMode="contain"
+                resizeMode="cover"
             />
         </View>
     );

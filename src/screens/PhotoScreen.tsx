@@ -52,7 +52,7 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
                         />
                     </TouchableOpacity>
 
-                    <Author name={photo.author?.name} />
+                    <Author name={photo.author.name} />
 
                     <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                         <MaterialCommunityIcons
