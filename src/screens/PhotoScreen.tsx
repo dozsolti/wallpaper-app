@@ -54,6 +54,15 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
 
                     <Author name={photo.author.name} />
 
+                    <TouchableOpacity
+                        style={[commonStyles.marginRight5]}
+                        onPress={() => setIsModalVisible(true)}>
+                        <MaterialCommunityIcons
+                            name="arrow-collapse-down"
+                            size={24}
+                            color="white"
+                        />
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                         <MaterialCommunityIcons
                             name="heart-outline"
@@ -74,6 +83,7 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
                 </SharedElement>
             </View>
             <LikeModal
+                photo={photo}
                 visible={isModalVisible}
                 onClose={() => setIsModalVisible(false)}
             />

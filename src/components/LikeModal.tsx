@@ -6,80 +6,38 @@ import {
     Image,
     TouchableOpacity,
     Pressable,
+    ScrollView,
 } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
 import Button from "./Button";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useStoreActions, useStoreState } from "../store/store";
+import CollectionBoxCreate from "./CollectionBoxCreate";
+import CollectionBox from "./CollectionBox";
+import { Photo } from "../models/Photo";
+import { Collection } from "../models/Collection";
 
 type Props = {
+    photo: Photo;
     visible: boolean;
     onClose: () => void;
 };
-const LikeModal: React.FC<Props> = ({ visible = false, onClose }) => {
-    const [isAddMode, setIsAddMode] = useState(false);
-
-    const renderItem = useCallback(
-        ({ item, index }) => {
-            return (
-                <TouchableOpacity
-                    style={[
-                        commonStyles.marginRight5,
-                        commonStyles.centerHorizontal,
-                    ]}
-                    onPress={() => {
-                        if (index == 0) setIsAddMode(true);
-                    }}>
-                    {index === 0 ? (
-                        <View
-                            style={[
-                                commonStyles.square(100),
-                                commonStyles.marginBottom3,
-                                { backgroundColor: colors.darkestGray },
-                                commonStyles.center,
-                                commonStyles.roundedSmall,
-                            ]}>
-                            <MaterialIcons name="add" size={32} color="black" />
-                        </View>
-                    ) : (
-                        <Image
-                            source={{
-                                uri: "https://images.unsplash.com/photo-1659733478370-159f42ab3190?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-                            }}
-                            style={[
-                                commonStyles.square(100),
-                                commonStyles.marginBottom3,
-                                commonStyles.roundedSmall,
-                            ]}
-                            resizeMode="cover"
-                        />
-                    )}
-                    {index === 0 && isAddMode ? (
-                        <Text
-                            style={[
-                                commonStyles.heading3,
-                                { color: colors.background },
-                            ]}>
-                            todo: input
-                        </Text>
-                    ) : (
-                        <Text
-                            style={[
-                                commonStyles.heading3,
-                                { color: colors.background },
-                            ]}>
-                            {index === 0 ? "Add" : "Label"}
-                        </Text>
-                    )}
-                </TouchableOpacity>
-            );
-        },
-        [isAddMode]
+const LikeModal: React.FC<Props> = ({ photo, visible = false, onClose }) => {
+    const collectionsAsArray = useStoreState(
+        (state) => state.collectionsAsArray
+    );
+    const togglePhotoInCollection = useStoreActions(
+        (actions) => actions.togglePhotoInCollection
     );
 
-    useMemo(() => {
-        setIsAddMode(false);
-    }, [visible]);
+    const toggleCollection = useCallback(
+        (collection: Collection) => {
+            togglePhotoInCollection({ collection, photo });
+        },
+        [photo]
+    );
+
     if (!visible) return null;
 
     return (
@@ -109,29 +67,17 @@ const LikeModal: React.FC<Props> = ({ visible = false, onClose }) => {
                     Save in collection
                 </Text>
 
-                <FlatList
-                    data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.toString()}
-                    horizontal={true}
-                    overScrollMode="never"
-                    showsHorizontalScrollIndicator={false}
-                    style={[
-                        commonStyles.marginVertical5,
-                        { overflow: "visible", flexGrow: 0 },
-                    ]}
-                />
-
-                <View style={[commonStyles.row]}>
-                    <Button
-                        text="Cancel"
-                        type="text"
-                        fluid
-                        textStyle={[{ color: colors.background }]}
-                        onPress={onClose}
-                    />
-                    <Button text="Save" fluid />
-                </View>
+                <ScrollView horizontal style={[commonStyles.marginVertical5]}>
+                    <CollectionBoxCreate onSubmit={toggleCollection} />
+                    {collectionsAsArray.map((collection, index) => (
+                        <CollectionBox
+                            key={`collection-${collection.id}`}
+                            collection={collection}
+                            active={collection.hasPhoto(photo)}
+                            onPress={() => toggleCollection(collection)}
+                        />
+                    ))}
+                </ScrollView>
             </View>
         </>
     );

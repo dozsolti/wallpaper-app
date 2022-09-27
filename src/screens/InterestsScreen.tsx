@@ -169,6 +169,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
                 </View>
             </View>
             <LikeModal
+                photo={photos[currentIndex]}
                 visible={isModalVisible}
                 onClose={() => setIsModalVisible(false)}
             />

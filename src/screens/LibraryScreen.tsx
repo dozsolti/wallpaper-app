@@ -3,11 +3,16 @@ import { Text, ScrollView } from "react-native";
 import ThumbnailCarousel from "../components/ThumbnailCarousel";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useStoreState } from "../store/store";
 
 type Props = {
     navigation: StackNavigationProp<any>;
 };
 const LibraryScreen: React.FC<Props> = ({ navigation }) => {
+    const collectionsAsArray = useStoreState(
+        (state) => state.collectionsAsArray
+    );
+
     return (
         <ScrollView overScrollMode="never">
             <Text
@@ -18,8 +23,14 @@ const LibraryScreen: React.FC<Props> = ({ navigation }) => {
                 ]}>
                 Library
             </Text>
-            <ThumbnailCarousel title="Liked" />
-            <ThumbnailCarousel
+            {collectionsAsArray.map((collection) => (
+                <ThumbnailCarousel
+                    key={`collection-${collection.id}`}
+                    photos={collection.photos}
+                    title={collection.name}
+                />
+            ))}
+            {/* <ThumbnailCarousel
                 title="Downloaded"
                 style={[commonStyles.marginBottom6]}
             />
@@ -31,7 +42,7 @@ const LibraryScreen: React.FC<Props> = ({ navigation }) => {
             />
             <ThumbnailCarousel title="Custom group" />
             <ThumbnailCarousel title="Custom group" />
-            <ThumbnailCarousel title="Custom group" />
+            <ThumbnailCarousel title="Custom group" /> */}
         </ScrollView>
     );
 };

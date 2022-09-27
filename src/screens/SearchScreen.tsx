@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import Input from "../components/Input";
 import Thumbnail from "../components/Thumbnail";
 import { Photo } from "../models/Photo";
 import PhotoService from "../services/PhotoService";
-import { colors } from "../utils/colors";
 import { commonStyles } from "../utils/commonStyles";
 import { SEARCH_RESULT_COUNT } from "../utils/constants";
 
@@ -78,25 +78,13 @@ const SearchScreen = () => {
                         : []
                 }>
                 <Text style={[commonStyles.heading3]}>Search</Text>
-                <TextInput
-                    onChangeText={setQuery}
+                <Input
                     value={query}
-                    onSubmitEditing={doSearch}
+                    setValue={setQuery}
+                    onSubmit={doSearch}
                     placeholder="Type anything"
                     autoFocus={true}
-                    style={[
-                        commonStyles.padding4,
-                        commonStyles.paddingHorizontal5,
-                        commonStyles.marginBottom4,
-                        commonStyles.roundedSmall,
-                        { width: "100%" } /* todo this in commonStyles */,
-                        {
-                            color: colors.black,
-                            backgroundColor: colors.gray,
-                            borderWidth: 1,
-                            borderColor: colors.darkerGray,
-                        },
-                    ]}
+                    style={[{ width: "100%" } /* todo this in commonStyles */]}
                 />
             </View>
             {photos.length > 0 ? (

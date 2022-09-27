@@ -1,15 +1,111 @@
-import { createStore, action, Action, createTypedHooks } from "easy-peasy";
+import {
+    createStore,
+    action,
+    Action,
+    createTypedHooks,
+    Thunk,
+    thunk,
+    Computed,
+    computed,
+} from "easy-peasy";
+import { Collection } from "../models/Collection";
 import { Interest } from "../models/Interest";
+import { Photo } from "../models/Photo";
+import StorageService, { STORAGE_KEYS } from "../services/StorageService";
 
+interface CollectionsType {
+    [collectionId: string]: Collection;
+}
 interface StoreModel {
     interests: Interest[];
-    setInterests: Action<StoreModel, Interest[]>;
+    _setInterests: Action<StoreModel, Interest[]>;
+    updateInterests: Thunk<StoreModel, Interest[]>;
+    loadSavedInterests: Thunk<StoreModel>;
+
+    collections: CollectionsType;
+    collectionsAsArray: Computed<StoreModel, Array<Collection>>;
+    _setCollections: Action<StoreModel, CollectionsType>;
+    updateCollections: Thunk<StoreModel, CollectionsType>;
+    loadSavedCollections: Thunk<StoreModel>;
+
+    createCollection: Thunk<StoreModel, Collection>;
+    togglePhotoInCollection: Thunk<
+        StoreModel,
+        { collection: Collection; photo: Photo }
+    >;
 }
 
 export const store = createStore<StoreModel>({
     interests: [],
-    setInterests: action((state, selectedInterests) => {
+    _setInterests: action((state, selectedInterests) => {
         state.interests = selectedInterests.sort(Interest.SORT_ALPHABETICAL);
+    }),
+    updateInterests: thunk(async (actions, selectedInterests) => {
+        actions._setInterests(selectedInterests);
+        await StorageService.setItem(STORAGE_KEYS.INTERESTS, selectedInterests);
+    }),
+    loadSavedInterests: thunk(async (actions) => {
+        const savedInterests = await StorageService.getItem(
+            STORAGE_KEYS.INTERESTS,
+            []
+        );
+        actions._setInterests(savedInterests);
+        return savedInterests.length != 0;
+    }),
+
+    collections: {},
+    collectionsAsArray: computed((state) =>
+        Object.values(state.collections).sort(Collection.SORT_CHRONOLOGICALLY)
+    ),
+    _setCollections: action((state, collections) => {
+        state.collections = collections;
+    }),
+    updateCollections: thunk(async (actions, collections) => {
+        actions._setCollections(collections);
+        await StorageService.setItem(STORAGE_KEYS.COLLECTIONS, collections);
+    }),
+    loadSavedCollections: thunk(async (actions) => {
+        let savedCollections = await StorageService.getItem(
+            STORAGE_KEYS.COLLECTIONS,
+            {
+                liked: new Collection({
+                    name: "Liked",
+                    createdAt: new Date(9999, 11),
+                }), // create at Infinity because it has to be first in the lists.
+            }
+        );
+        if (Object.values(savedCollections).length > 0)
+            savedCollections = Object.values(savedCollections).reduce(
+                (t: CollectionsType, v: any) => {
+                    return {
+                        ...t,
+                        [v.id]: new Collection({
+                            ...v,
+                            photos: v.photos.map((p: any) => new Photo(p)),
+                        }),
+                    };
+                },
+                {}
+            );
+
+        actions._setCollections(savedCollections);
+        console.log({ savedCollections });
+        return savedCollections.length != 0;
+    }),
+
+    createCollection: thunk((actions, newCollection, helper) => {
+        const { collections } = helper.getState();
+        collections[newCollection.id] = newCollection;
+        actions.updateCollections(collections);
+    }),
+    togglePhotoInCollection: thunk((actions, { collection, photo }, helper) => {
+        const collections = { ...helper.getState().collections };
+
+        if (collections[collection.id].hasPhoto(photo))
+            collections[collection.id].removePhoto(photo);
+        else collections[collection.id].addPhoto(photo);
+
+        actions.updateCollections(collections);
     }),
 });
 

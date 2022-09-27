@@ -14,9 +14,9 @@ type Props = {
 const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
     const [selectedInterests, setSelectedInterests] = React.useState<
         Interest[]
-    >([]);
+    >([ALL_INTERESTS[0]]);
 
-    const setInterests = useStoreActions((actions) => actions.setInterests);
+    const updateInterests = useStoreActions((actions) => actions.updateInterests);
 
     const isSelected = (interestId: string) => {
         return selectedInterests.findIndex((x) => x.id == interestId) != -1;
@@ -38,8 +38,8 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
         });
     };
 
-    const goNext = () => {
-        setInterests(selectedInterests);
+    const goNext = async () => {
+        await updateInterests(selectedInterests);
         navigation.navigate("Main");
     };
 

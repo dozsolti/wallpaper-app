@@ -6,4 +6,6 @@ export const colors = {
     darkerGray: "#DDD",
     darkestGray: "#787878",
     black: "#212427",
+
+    danger: "#770019",
 };

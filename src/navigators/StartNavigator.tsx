@@ -13,6 +13,7 @@ import MainNavigator from "./MainNavigator";
 
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import ProfileScreen from "../screens/ProfileScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 const Stack = createSharedElementStackNavigator();
 
@@ -28,6 +29,7 @@ const StartNavigator = () => {
     return (
         <NavigationContainer theme={MyTheme}>
             <Stack.Navigator screenOptions={NO_HEADER}>
+                <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen
                     name="SelectInterests"
