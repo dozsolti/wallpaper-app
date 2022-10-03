@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Author } from "../models/Author";
 import { Photo } from "../models/Photo";
+import { SEARCH_RESULT_COUNT } from "../utils/constants";
 
 class PhotoService {
     #width = 1080;
@@ -21,12 +22,15 @@ class PhotoService {
         "tagMode": "all",
         "tags": "all",
         "width": 720,*/
-    getPhoto(random = Math.floor(Math.random() * 9999)): Promise<Photo | null> {
+    getPhoto(
+        keyword = 'all',
+        random = Math.floor(Math.random() * 9999)
+        ): Promise<Photo | null> {
         return axios
             .get(
                 `${this.#baseUrl}/${this.#width}/${
                     this.#height
-                }/all?lock=${random}`
+                }/${keyword}?lock=${random}`
             )
             .then<Photo>((response) => {
                 const result = response.data;
@@ -54,9 +58,20 @@ class PhotoService {
         });
     }
 
-    getPhotosByInterest(interest: string) {}
+    getPhotosByInterestId(interestId: string, pageNumber: number = 0) {
+        return this.getPhotos();
+    }
 
-    getPhotosBySearchQuery(query: string) {}
+    getPhotosBySearchQuery(query: string): Promise<Photo[]> {
+        return new Promise(async (resolve) => {
+            const result = [];
+            for (let i = 0; i < SEARCH_RESULT_COUNT; i++) {
+                const r = await this.getPhoto(query);
+                if (r) result.push(r);
+            }
+            resolve(result);
+        });
+    }
 
     getPhotosByAuthor() {}
 }

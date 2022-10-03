@@ -27,6 +27,7 @@ interface StoreModel {
     _setCollections: Action<StoreModel, CollectionsType>;
     updateCollections: Thunk<StoreModel, CollectionsType>;
     loadSavedCollections: Thunk<StoreModel>;
+    deleteCollectionById: Thunk<StoreModel, string>;
 
     createCollection: Thunk<StoreModel, Collection>;
     togglePhotoInCollection: Thunk<
@@ -70,7 +71,7 @@ export const store = createStore<StoreModel>({
             {
                 liked: new Collection({
                     name: "Liked",
-                    createdAt: new Date(9999, 11),
+                    createdAt: new Date(99999999999999),
                 }), // create at Infinity because it has to be first in the lists.
             }
         );
@@ -89,12 +90,19 @@ export const store = createStore<StoreModel>({
             );
 
         actions._setCollections(savedCollections);
-        console.log({ savedCollections });
         return savedCollections.length != 0;
     }),
 
+    deleteCollectionById: thunk(async (actions, collectionId, helper) => {
+        const collections = { ...helper.getState().collections };
+
+        delete collections[collectionId];
+        actions.updateCollections(collections);
+    }),
+
     createCollection: thunk((actions, newCollection, helper) => {
-        const { collections } = helper.getState();
+        const collections = { ...helper.getState().collections };
+
         collections[newCollection.id] = newCollection;
         actions.updateCollections(collections);
     }),

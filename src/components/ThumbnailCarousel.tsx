@@ -81,6 +81,14 @@ const ThumbnailCarousel: React.FC<Props> = ({
                     }
                     renderItem={renderItem}
                     style={[{ overflow: "visible" }]}
+                    ListEmptyComponent={() => (
+                        <Text
+                            style={[
+                                { color: colors.darkestGray },
+                            ]}>
+                            No data
+                        </Text>
+                    )}
                 />
             )}
         </View>

@@ -14,10 +14,15 @@ import {
 } from "@expo/vector-icons";
 import Thumbnail from "../components/Thumbnail";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Collection } from "../models/Collection";
+import { Photo } from "../models/Photo";
+import EmptyState from "../components/EmptyState";
+import { useStoreActions } from "../store/store";
 
-const renderItem = ({ item, index }: { item: any; index: number }) => {
+const renderItem = ({ item, index }: { item: Photo; index: number }) => {
     return (
         <Thumbnail
+            photo={item}
             style={[
                 commonStyles.marginTop5,
                 index % 2 == 0 ? commonStyles.marginRight5 : {},
@@ -29,35 +34,40 @@ const renderItem = ({ item, index }: { item: any; index: number }) => {
 
 type Props = {
     navigation: StackNavigationProp<any>;
+    route: any;
 };
-const LibraryPhotosScreen: React.FC<Props> = ({ navigation }) => {
+const LibraryPhotosScreen: React.FC<Props> = ({ navigation, route }) => {
+    const collection: Collection = route.params.collection;
+
+    const deleteCollectionById = useStoreActions(
+        (actions) => actions.deleteCollectionById
+    );
+
+    const deleteCollection = async () => {
+        await deleteCollectionById(collection.id);
+        navigation.goBack();
+    };
     return (
         <FlatList
-            data={[
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                19, 20,
-            ]}
-            keyExtractor={(item) => item.toString()}
+            data={collection.photos}
+            keyExtractor={(item, index) => `photo-${index}-${item.id}`}
             renderItem={renderItem}
             numColumns={2}
             style={[commonStyles.screenContainer]}
             overScrollMode="never"
             showsVerticalScrollIndicator={false}
+            ListEmptyComponent={() => <EmptyState />}
             ListHeaderComponent={() => (
                 <View
                     style={[commonStyles.row, commonStyles.centerRowVertical]}>
                     <TouchableOpacity
                         style={[
                             { position: "absolute" },
-                            commonStyles.padding2,
+                            commonStyles.padding5,
                             commonStyles.z1,
                         ]}
                         onPress={() => navigation.goBack()}>
-                        <MaterialCommunityIcons
-                            name="arrow-left"
-                            size={24}
-                            color="black"
-                        />
+                        <MaterialCommunityIcons name="arrow-left" size={24} />
                     </TouchableOpacity>
                     <Text
                         style={[
@@ -66,8 +76,17 @@ const LibraryPhotosScreen: React.FC<Props> = ({ navigation }) => {
                             commonStyles.fill,
                             commonStyles.marginVertical2,
                         ]}>
-                        Custom group 1
+                        {collection.name}
                     </Text>
+                    <TouchableOpacity
+                        style={[
+                            { position: "absolute", right: 0 },
+                            commonStyles.padding5,
+                            commonStyles.z1,
+                        ]}
+                        onPress={deleteCollection}>
+                        <MaterialCommunityIcons name="delete" size={24} />
+                    </TouchableOpacity>
                 </View>
             )}
         />

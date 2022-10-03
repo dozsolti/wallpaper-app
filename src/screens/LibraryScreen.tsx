@@ -23,26 +23,20 @@ const LibraryScreen: React.FC<Props> = ({ navigation }) => {
                 ]}>
                 Library
             </Text>
+            {/* <ThumbnailCarousel
+                title="Downloaded"
+                style={[commonStyles.marginBottom6]}
+            /> */}
             {collectionsAsArray.map((collection) => (
                 <ThumbnailCarousel
                     key={`collection-${collection.id}`}
                     photos={collection.photos}
                     title={collection.name}
+                    onPressSeeAll={() => {
+                        navigation.navigate("LibraryPhotos", { collection });
+                    }}
                 />
             ))}
-            {/* <ThumbnailCarousel
-                title="Downloaded"
-                style={[commonStyles.marginBottom6]}
-            />
-            <ThumbnailCarousel
-                title="Custom group"
-                onPressSeeAll={() => {
-                    navigation.navigate("LibraryPhotos");
-                }}
-            />
-            <ThumbnailCarousel title="Custom group" />
-            <ThumbnailCarousel title="Custom group" />
-            <ThumbnailCarousel title="Custom group" /> */}
         </ScrollView>
     );
 };
