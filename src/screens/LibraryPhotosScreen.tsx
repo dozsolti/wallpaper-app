@@ -25,7 +25,7 @@ const renderItem = ({ item, index }: { item: Photo; index: number }) => {
             photo={item}
             style={[
                 commonStyles.marginTop5,
-                index % 2 == 0 ? commonStyles.marginRight5 : {},
+                commonStyles.marginHorizontal3,
                 commonStyles.fill,
             ]}
         />
@@ -53,7 +53,7 @@ const LibraryPhotosScreen: React.FC<Props> = ({ navigation, route }) => {
             keyExtractor={(item, index) => `photo-${index}-${item.id}`}
             renderItem={renderItem}
             numColumns={2}
-            style={[commonStyles.screenContainer]}
+            style={[commonStyles.screenContainer, commonStyles.padding0]}
             overScrollMode="never"
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={() => <EmptyState />}
