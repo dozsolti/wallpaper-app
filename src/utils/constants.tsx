@@ -23,4 +23,4 @@ export const ALL_INTERESTS = [
     new Interest("War"),
 ];
 
-export const SEARCH_RESULT_COUNT = 20
+export const SEARCH_RESULT_COUNT = 10
