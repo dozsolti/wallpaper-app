@@ -34,6 +34,7 @@ interface StoreModel {
         StoreModel,
         { collection: Collection; photo: Photo }
     >;
+    isPhotoInAnyCollection: Computed<StoreModel, (photo: Photo) => boolean>;
 }
 
 export const store = createStore<StoreModel>({
@@ -115,6 +116,13 @@ export const store = createStore<StoreModel>({
 
         actions.updateCollections(collections);
     }),
+
+    isPhotoInAnyCollection: computed(
+        (state) => (photo: Photo) =>
+            Object.values(state.collections).findIndex((x) =>
+                x.hasPhoto(photo)
+            ) != -1
+    ),
 });
 
 const typedHooks = createTypedHooks<StoreModel>();

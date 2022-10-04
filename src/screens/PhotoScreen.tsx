@@ -9,6 +9,7 @@ import Author from "../components/Author";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Photo } from "../models/Photo";
 import ImageZoom from "react-native-image-pan-zoom";
+import { useStoreState } from "../store/store";
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -19,6 +20,10 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const { photo }: { photo: Photo } = route.params;
+
+    const isPhotoInAnyCollection = useStoreState(
+        (state) => state.isPhotoInAnyCollection
+    );
 
     return (
         <>
@@ -65,7 +70,11 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                         <MaterialCommunityIcons
-                            name="heart-outline"
+                            name={
+                                isPhotoInAnyCollection(photo)
+                                    ? "heart"
+                                    : "heart-outline"
+                            }
                             size={24}
                             color="white"
                         />
