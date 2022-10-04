@@ -212,6 +212,9 @@ const styles = StyleSheet.create({
 
     textCenter: { textAlign: "center" },
 
+    bold: { fontWeight: "bold" },
+    underline: { textDecorationLine: "underline" },
+
     absolute: { position: "absolute" },
     absoluteBottom: { position: "absolute", bottom: 0, left: 0, right: 0 },
     absoluteTop: { position: "absolute", top: 0, left: 0, right: 0 },
@@ -228,6 +231,14 @@ const functions = {
     }),
 };
 
-type Prop = typeof styles & typeof functions;
+const constants = {
+    screenWidth,
+    screenHeight,
+};
 
-export const commonStyles: Prop = Object.setPrototypeOf(styles, functions);
+type Prop = typeof styles & typeof functions & typeof constants;
+
+export const commonStyles: Prop = Object.setPrototypeOf(styles, {
+    ...functions,
+    ...constants,
+});

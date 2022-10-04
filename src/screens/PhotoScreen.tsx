@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
 import LikeModal from "../components/LikeModal";
 import { SharedElement } from "react-navigation-shared-element";
 import Author from "../components/Author";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Photo } from "../models/Photo";
+import ImageZoom from "react-native-image-pan-zoom";
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -72,15 +72,22 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
                     </TouchableOpacity>
                 </View>
 
-                <SharedElement
-                    id={`photo-${photo.id}`}
-                    style={[commonStyles.container]}>
-                    <Image
-                        source={{ uri: photo.previewUrl }}
-                        style={[commonStyles.container]}
-                        resizeMode="cover"
-                    />
-                </SharedElement>
+                <ImageZoom
+                    cropWidth={commonStyles.screenWidth}
+                    cropHeight={commonStyles.screenHeight}
+                    imageWidth={commonStyles.screenWidth}
+                    imageHeight={commonStyles.screenHeight}
+                    doubleClickInterval={300}>
+                    <SharedElement
+                        id={`photo-${photo.id}`}
+                        style={[commonStyles.container]}>
+                        <Image
+                            source={{ uri: photo.previewUrl }}
+                            style={[commonStyles.container]}
+                            resizeMode="cover"
+                        />
+                    </SharedElement>
+                </ImageZoom>
             </View>
             <LikeModal
                 photo={photo}
