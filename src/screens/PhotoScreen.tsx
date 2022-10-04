@@ -10,6 +10,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Photo } from "../models/Photo";
 import ImageZoom from "react-native-image-pan-zoom";
 import { useStoreState } from "../store/store";
+import { downloadFile } from "../utils/file";
+import Toast from "react-native-simple-toast";
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -24,6 +26,17 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
     const isPhotoInAnyCollection = useStoreState(
         (state) => state.isPhotoInAnyCollection
     );
+
+    const download = async () => {
+        try {
+            const fileURL = await downloadFile(photo.previewUrl);
+            if (!fileURL) throw "Missing file url";
+            Toast.show("Download succeeded.");
+        } catch (err) {
+            console.log(err);
+            Toast.show(JSON.stringify(err), Toast.LONG);
+        }
+    };
 
     return (
         <>
@@ -61,7 +74,7 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
 
                     <TouchableOpacity
                         style={[commonStyles.marginRight5]}
-                        onPress={() => setIsModalVisible(true)}>
+                        onPress={download}>
                         <MaterialCommunityIcons
                             name="arrow-collapse-down"
                             size={24}
