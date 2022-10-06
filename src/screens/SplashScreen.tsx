@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Alert, BackHandler } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useStoreActions } from "../store/store";
@@ -23,13 +23,49 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
 
     const goNext = async () => {
         const wasData = await loadData();
-        if (wasData) navigation.navigate("Main");
-        else navigation.navigate("Welcome");
+        if (wasData)
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "Main" }],
+            });
+        else
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "Welcome" }],
+            });
     };
 
     useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
         goNext();
     }, []);
+
+    const backButtonHandler = () => {
+        if (navigation.canGoBack()) {
+            navigation.goBack();
+            return true;
+        }
+
+        Alert.alert(
+            "Exit App",
+            "Exiting the application?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel",
+                },
+                {
+                    text: "OK",
+                    onPress: () => BackHandler.exitApp(),
+                },
+            ],
+            {
+                cancelable: false,
+            }
+        );
+        return true;
+    };
 
     return (
         <View style={[commonStyles.container]}>

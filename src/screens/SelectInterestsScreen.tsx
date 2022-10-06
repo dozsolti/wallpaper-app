@@ -45,7 +45,10 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
 
     const goNext = async () => {
         await updateInterests(selectedInterests);
-        navigation.navigate("Main");
+        navigation.reset({
+            index: 0,
+            routes: [{ name: "Main" }],
+        });
     };
 
     return (
