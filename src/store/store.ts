@@ -73,6 +73,7 @@ const store = createStore<StoreModel>({
                 liked: new Collection({
                     name: "Liked",
                     createdAt: 99999999999999,
+                    deletable: false
                 }), // create at Infinity because it has to be first in the lists.
             }
         );

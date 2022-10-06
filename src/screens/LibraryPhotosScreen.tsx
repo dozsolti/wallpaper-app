@@ -78,15 +78,17 @@ const LibraryPhotosScreen: React.FC<Props> = ({ navigation, route }) => {
                         ]}>
                         {collection.name}
                     </Text>
-                    <TouchableOpacity
-                        style={[
-                            { position: "absolute", right: 0 },
-                            commonStyles.padding5,
-                            commonStyles.z1,
-                        ]}
-                        onPress={deleteCollection}>
-                        <MaterialCommunityIcons name="delete" size={24} />
-                    </TouchableOpacity>
+                    {collection.deletable ? (
+                        <TouchableOpacity
+                            style={[
+                                { position: "absolute", right: 0 },
+                                commonStyles.padding5,
+                                commonStyles.z1,
+                            ]}
+                            onPress={deleteCollection}>
+                            <MaterialCommunityIcons name="delete" size={24} />
+                        </TouchableOpacity>
+                    ) : null}
                 </View>
             )}
         />

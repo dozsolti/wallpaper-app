@@ -7,20 +7,25 @@ export class Collection {
     photos: Photo[];
     createdAt: number;
 
+    deletable: boolean;
+
     constructor({
         name,
-        createdAt,
-        photos,
+        photos = [],
+        createdAt = Date.now(),
+        deletable = true,
     }: {
         name: string;
         createdAt?: number;
         photos?: Photo[];
+        deletable?: boolean;
     }) {
         this.id = toSlugCase(name);
         this.name = name;
-        this.photos = photos ? photos : [];
+        this.photos = photos;
 
-        this.createdAt = createdAt ? createdAt : Date.now();
+        this.createdAt = createdAt;
+        this.deletable = deletable;
     }
 
     get previewUrl() {
