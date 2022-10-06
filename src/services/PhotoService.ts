@@ -30,7 +30,7 @@ class PhotoService {
     getPhoto(
         keyword = "all",
         random = Math.floor(Math.random() * 9999)
-        ): Promise<Photo | null> {
+    ): Promise<Photo | null> {
         return axios
             .get(
                 `${this.#baseUrl}/${this.#width}/${
@@ -44,6 +44,7 @@ class PhotoService {
                     id: random + "",
                     author: new Author(result.owner),
                     previewUrl: result.file,
+                    license: result.license,
                 });
             })
             .catch((err) => {
@@ -67,13 +68,13 @@ class PhotoService {
             new Array(length)
                 .fill(null)
                 .map((_, i) =>
-                this.getPhoto(
+                    this.getPhoto(
                         keyword,
                         random
                             ? undefined
                             : this.getRandomByPageNumber(pageNumber) + i
+                    )
                 )
-            )
         ).then((photos) => photos.filter((p): p is Photo => p != null));
     }
 

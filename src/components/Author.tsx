@@ -7,6 +7,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 type Props = {
     name: string | undefined;
+    license: string;
     profilePicture?: string;
     disabled?: boolean;
     containerStyle?: any;
@@ -16,6 +17,7 @@ type Props = {
 
 const Author: React.FC<Props> = ({
     name = "-",
+    license,
     profilePicture = "https://picsum.photos/200/300",
     disabled = false,
     containerStyle = {},
@@ -30,7 +32,7 @@ const Author: React.FC<Props> = ({
             onPress={() => {
                 navigation.push("Profile", {});
             }}
-            style={[commonStyles.row, commonStyles.container, containerStyle]}>
+            style={[commonStyles.container, containerStyle]}>
             {/* <Image
                 source={{ uri: profilePicture }}
                 style={[
@@ -47,9 +49,16 @@ const Author: React.FC<Props> = ({
                     commonStyles.heading3,
                     { color: colors.background },
                     textStyle,
+                    { lineHeight: undefined },
                 ]}>
                 {name}
             </Text>
+            {!disabled ? (
+                <Text
+                    style={[{ color: colors.gray }, { margin: 0, padding: 0 }]}>
+                    License: {license}
+                </Text>
+            ) : null}
         </TouchableOpacity>
     );
 };

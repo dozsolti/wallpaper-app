@@ -78,6 +78,7 @@ const Thumbnail: React.FC<Props> = ({
                             />
                             <Author
                                 name={photo.author.name}
+                                license={photo.license}
                                 disabled
                                 containerStyle={[
                                     commonStyles.absoluteBottom,

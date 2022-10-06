@@ -70,7 +70,7 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
                         />
                     </TouchableOpacity>
 
-                    <Author name={photo.author.name} />
+                    <Author name={photo.author.name} license={photo.license} />
 
                     <TouchableOpacity
                         style={[commonStyles.marginRight5]}

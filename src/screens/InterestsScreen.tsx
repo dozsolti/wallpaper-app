@@ -156,7 +156,10 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
                         commonStyles.margin5,
                         { zIndex: 1 },
                     ]}>
-                    <Author name={photos[currentIndex]?.author.name} />
+                    <Author
+                        name={photos[currentIndex]?.author.name}
+                        license={photos[currentIndex].license}
+                    />
 
                     <TouchableOpacity
                         onPress={() => setIsModalVisible(true)}
