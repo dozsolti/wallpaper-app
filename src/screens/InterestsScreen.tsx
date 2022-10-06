@@ -6,7 +6,6 @@ import {
     FlatList,
     ToastAndroid,
     TouchableOpacity,
-    ViewToken,
 } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
@@ -20,6 +19,7 @@ import { Photo } from "../models/Photo";
 import PhotoService from "../services/PhotoService";
 import { INTEREST_RESULT_COUNT } from "../utils/constants";
 import { useStoreState } from "../store/store";
+import { useScrollSpy } from "../hooks/useScrollSpy";
 
 const renderItem = ({ item }: { item: Photo }) => {
     return (
@@ -42,15 +42,9 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
     const pageNumber = useRef(0);
     const [photos, setPhotos] = useState<Photo[]>([]);
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const { currentIndex, listProps } = useScrollSpy();
 
-    const onViewRef = useRef(({ changed }: { changed: ViewToken[] }) => {
-        if (changed[0].index) setCurrentIndex(changed[0].index);
-    });
-    const viewConfigRef = useRef({
-        viewAreaCoveragePercentThreshold: 50,
-    });
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const isPhotoInAnyCollection = useStoreState(
         (state) => state.isPhotoInAnyCollection
@@ -76,6 +70,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
         );
         setPhotos((v) => [...v, ...photos]);
     };
+    if (!photos || photos.length == 0) return null;
 
     return (
         <>
@@ -132,10 +127,9 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
                     snapToAlignment="center"
                     overScrollMode="never"
                     style={[{ flexGrow: 0 }]}
-                    onViewableItemsChanged={onViewRef.current}
-                    viewabilityConfig={viewConfigRef.current}
                     onEndReachedThreshold={1}
                     onEndReached={loadMorePhotos}
+                    {...listProps}
                 />
 
                 <LinearGradient
@@ -157,7 +151,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
                         { zIndex: 1 },
                     ]}>
                     <Author
-                        name={photos[currentIndex]?.author.name}
+                        name={photos[currentIndex].author.name}
                         license={photos[currentIndex].license}
                     />
 

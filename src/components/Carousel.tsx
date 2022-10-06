@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { FlatList, Text, View, Image, ViewToken } from "react-native";
+import { useScrollSpy } from "../hooks/useScrollSpy";
 import { commonStyles } from "../utils/commonStyles";
 import Bullet from "./Bullet";
 
@@ -66,14 +67,7 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
 };
 
 const Carousel = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    const onViewRef = useRef(({ changed }: { changed: ViewToken[] }) => {
-        if (changed[0].index) setCurrentIndex(changed[0].index);
-    });
-    const viewConfigRef = React.useRef({
-        viewAreaCoveragePercentThreshold: 50,
-    });
+    const { currentIndex, listProps } = useScrollSpy();
 
     return (
         <>
@@ -84,8 +78,7 @@ const Carousel = () => {
                 renderItem={renderItem}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) => index.toString()}
-                onViewableItemsChanged={onViewRef.current}
-                viewabilityConfig={viewConfigRef.current}
+                {...listProps}
                 style={[commonStyles.marginTop3]}
             />
 

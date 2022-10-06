@@ -73,7 +73,7 @@ const store = createStore<StoreModel>({
                 liked: new Collection({
                     name: "Liked",
                     createdAt: 99999999999999,
-                    deletable: false
+                    deletable: false,
                 }), // create at Infinity because it has to be first in the lists.
             }
         );
@@ -119,7 +119,7 @@ const store = createStore<StoreModel>({
 
     isPhotoInAnyCollection: computed(
         (state) => (photo: Photo) =>
-            !photo ? false : Object.values(state.collections).findIndex((x) =>
+            Object.values(state.collections).findIndex((x) =>
                 x.hasPhoto(photo)
             ) != -1
     ),
