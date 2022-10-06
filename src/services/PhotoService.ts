@@ -38,13 +38,11 @@ class PhotoService {
                     this.#height
                 }/${keyword}?lock=${random}`
             )
-            .then<Photo>((response) => {
-                const result = response.data;
-
+            .then<Photo>(({ data }) => {
                 return new Photo({
-                    author: new Author(result.owner),
-                    previewUrl: result.file,
-                    license: result.license,
+                    author: new Author(data.owner),
+                    url: data.file,
+                    license: data.license,
                 });
             })
             .catch((err) => {

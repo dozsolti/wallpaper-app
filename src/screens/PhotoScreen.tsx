@@ -29,7 +29,7 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
 
     const download = async () => {
         try {
-            const fileURL = await downloadFile(photo.previewUrl);
+            const fileURL = await downloadFile(photo.url);
             if (!fileURL) throw "Missing file url";
             Toast.show("Download succeeded.");
         } catch (err) {
@@ -104,7 +104,7 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
                         id={`photo-${photo.id}`}
                         style={[commonStyles.container]}>
                         <Image
-                            source={{ uri: photo.previewUrl }}
+                            source={{ uri: photo.url }}
                             style={[commonStyles.container]}
                             resizeMode="cover"
                         />

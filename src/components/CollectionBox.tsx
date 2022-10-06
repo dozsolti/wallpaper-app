@@ -27,9 +27,9 @@ const CollectionBox: React.FC<Props> = ({
                     : {},
             ]}
             onPress={onPress}>
-            {collection.previewUrl ? (
+            {collection.url ? (
                 <Image
-                    source={{ uri: collection.previewUrl }}
+                    source={{ uri: collection.url }}
                     style={[
                         commonStyles.square(100),
                         commonStyles.marginBottom3,

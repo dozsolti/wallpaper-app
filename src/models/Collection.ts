@@ -28,8 +28,8 @@ export class Collection {
         this.deletable = deletable;
     }
 
-    get previewUrl() {
-        return this.photos?.[0]?.previewUrl ?? "";
+    get url() {
+        return this.photos?.[0]?.url ?? "";
     }
 
     hasPhoto(photo: Photo): boolean {

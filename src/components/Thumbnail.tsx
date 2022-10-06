@@ -57,7 +57,7 @@ const Thumbnail: React.FC<Props> = ({
                             commonStyles.roundedSmall,
                         ]}>
                         <Image
-                            source={{ uri: photo.previewUrl }}
+                            source={{ uri: photo.url }}
                             style={[
                                 commonStyles.container,
                                 commonStyles.roundedSmall,

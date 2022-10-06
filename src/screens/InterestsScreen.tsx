@@ -26,7 +26,7 @@ const renderItem = ({ item }: { item: Photo }) => {
         <View>
             <Image
                 source={{
-                    uri: item.previewUrl,
+                    uri: item.url,
                 }}
                 style={[commonStyles.fullScreen]}
                 resizeMode="cover"
