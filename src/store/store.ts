@@ -91,7 +91,6 @@ export const store = createStore<StoreModel>({
             );
 
         actions._setCollections(savedCollections);
-        return savedCollections.length != 0;
     }),
 
     deleteCollectionById: thunk(async (actions, collectionId, helper) => {

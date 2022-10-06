@@ -17,8 +17,8 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
 
     const loadData = async () => {
         const wasInterestSaved = await loadSavedInterests();
-        const wasCollectionSaved = await loadSavedCollections();
-        return wasInterestSaved || wasCollectionSaved;
+        await loadSavedCollections();
+        return wasInterestSaved;
     };
 
     const goNext = async () => {
