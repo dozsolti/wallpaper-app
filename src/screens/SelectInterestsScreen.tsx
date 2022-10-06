@@ -10,13 +10,18 @@ import { useStoreActions } from "../store/store";
 
 type Props = {
     navigation: StackNavigationProp<any>;
+    route: any;
 };
-const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
+const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
+    const { isFromSettings } = route.params || {};
+
     const [selectedInterests, setSelectedInterests] = React.useState<
         Interest[]
     >([ALL_INTERESTS[0]]);
 
-    const updateInterests = useStoreActions((actions) => actions.updateInterests);
+    const updateInterests = useStoreActions(
+        (actions) => actions.updateInterests
+    );
 
     const isSelected = (interestId: string) => {
         return selectedInterests.findIndex((x) => x.id == interestId) != -1;
@@ -51,7 +56,7 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
                 </Text>
                 <Text style={[commonStyles.text, commonStyles.marginTop4]}>
                     Please select your interests so that we can show you only
-                    the relevant content. {selectedInterests.length}/5
+                    the relevant content.
                 </Text>
                 <View
                     style={[
@@ -78,9 +83,9 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation }) => {
                     commonStyles.center,
                 ]}>
                 <Button
-                    text="Start"
+                    text={isFromSettings ? "Continue" : "Start"}
                     fluid
-                    // disabled={selectedInterests.length < 5}
+                    disabled={selectedInterests.length < 1}
                     onPress={goNext}
                 />
             </View>

@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
-import { FlatList, Text, View, Image, ViewToken } from "react-native";
-import { useScrollSpy } from "../hooks/useScrollSpy";
+import React, { forwardRef } from "react";
+import { FlatList, Text, View, Image } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Bullet from "./Bullet";
 
@@ -66,31 +65,40 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
     );
 };
 
-const Carousel = () => {
-    const { currentIndex, listProps } = useScrollSpy();
-
-    return (
-        <>
-            <FlatList
-                data={data}
-                horizontal={true}
-                pagingEnabled
-                renderItem={renderItem}
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => index.toString()}
-                {...listProps}
-                style={[commonStyles.marginTop3]}
-            />
-
-            <View style={[commonStyles.row, commonStyles.spaceAround]}>
-                <View style={[commonStyles.row]}>
-                    {data.map((item, index) => (
-                        <Bullet key={index} active={index == currentIndex} />
-                    ))}
-                </View>
-            </View>
-        </>
-    );
+type Props = {
+    currentIndex: number;
+    listProps: any;
+    ref: any;
 };
+const Carousel: React.FC<Props> = forwardRef(
+    ({ currentIndex, listProps }, ref) => {
+        return (
+            <>
+                <FlatList
+                    ref={ref}
+                    data={data}
+                    horizontal={true}
+                    pagingEnabled
+                    renderItem={renderItem}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) => index.toString()}
+                    {...listProps}
+                    style={[commonStyles.marginTop3]}
+                />
+
+                <View style={[commonStyles.row, commonStyles.spaceAround]}>
+                    <View style={[commonStyles.row]}>
+                        {data.map((item, index) => (
+                            <Bullet
+                                key={index}
+                                active={index == currentIndex}
+                            />
+                        ))}
+                    </View>
+                </View>
+            </>
+        );
+    }
+);
 
 export default Carousel;
