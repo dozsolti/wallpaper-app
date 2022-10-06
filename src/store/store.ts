@@ -37,7 +37,7 @@ interface StoreModel {
     isPhotoInAnyCollection: Computed<StoreModel, (photo: Photo) => boolean>;
 }
 
-export const store = createStore<StoreModel>({
+const store = createStore<StoreModel>({
     interests: [],
     _setInterests: action((state, selectedInterests) => {
         state.interests = selectedInterests.sort(Interest.SORT_ALPHABETICAL);
@@ -126,6 +126,9 @@ export const store = createStore<StoreModel>({
 
 const typedHooks = createTypedHooks<StoreModel>();
 
+(window as any).myApp = store;
+
+export { store };
 export const useStoreActions = typedHooks.useStoreActions;
 export const useStoreDispatch = typedHooks.useStoreDispatch;
 export const useStoreState = typedHooks.useStoreState;
