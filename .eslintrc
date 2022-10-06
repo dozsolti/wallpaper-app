@@ -1,0 +1,12 @@
+{
+    "extends": "@react-native-community",
+    "overrides": [
+        {
+            "files": ["*"],
+            "extends": [],
+            "rules": {
+                "quotes": [1, "double"]
+            }
+        }
+    ]
+}
