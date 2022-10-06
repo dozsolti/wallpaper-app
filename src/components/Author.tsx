@@ -30,7 +30,7 @@ const Author: React.FC<Props> = ({
             }}
             style={[commonStyles.container, containerStyle]}>
             <Text
-                numberOfLines={1}
+                numberOfLines={disabled ? 1 : undefined}
                 style={[
                     commonStyles.heading3,
                     { color: colors.background },
