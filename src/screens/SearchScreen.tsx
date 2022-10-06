@@ -8,6 +8,7 @@ import PhotoService from "../services/PhotoService";
 import { commonStyles } from "../utils/commonStyles";
 import { SEARCH_RESULT_COUNT } from "../utils/constants";
 import { useFocusEffect } from "@react-navigation/native";
+import { splitArrayInChuncks } from "../utils/formatter";
 
 const renderItem = ({ item, index }: { item: Photo[]; index: number }) => {
     if (!item) return null;
@@ -79,15 +80,14 @@ const SearchScreen = () => {
             setPhotos([]);
             return;
         }
-        setPhotos(new Array(SEARCH_RESULT_COUNT).fill(null));
+        const loadingArray = splitArrayInChuncks(
+            new Array(SEARCH_RESULT_COUNT).fill(null)
+        );
+        setPhotos(loadingArray);
 
-        let result: any = await PhotoService.getPhotosBySearchQuery(query);
-        result = result.reduce((all: any, one: any, i: number) => {
-            const ch = Math.floor(i / 3);
-            all[ch] = [].concat(all[ch] || [], one);
-            return all;
-        }, Array<Photo[]>());
-
+        const result: any = splitArrayInChuncks(
+            await PhotoService.getPhotosBySearchQuery(query)
+        );
         setPhotos(result);
     };
 
