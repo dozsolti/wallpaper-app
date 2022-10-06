@@ -1,3 +1,6 @@
+/*
+    Unfortunately, loremflickr.com doesn't offer data about users.
+*/
 import React, { useState } from "react";
 import {
     View,

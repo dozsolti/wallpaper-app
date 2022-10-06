@@ -1,9 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Linking } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 
 type Props = {
     name: string | undefined;
@@ -18,31 +16,19 @@ type Props = {
 const Author: React.FC<Props> = ({
     name = "-",
     license,
-    profilePicture = "https://picsum.photos/200/300",
     disabled = false,
     containerStyle = {},
-    avatarStyle = {},
     textStyle = {},
 }) => {
-    const navigation = useNavigation<StackNavigationProp<any>>();
-
     return (
         <TouchableOpacity
             disabled={disabled}
             onPress={() => {
-                navigation.push("Profile", {});
+                Linking.openURL(
+                    `https://www.flickr.com/search/people/?username=${name}`
+                );
             }}
             style={[commonStyles.container, containerStyle]}>
-            {/* <Image
-                source={{ uri: profilePicture }}
-                style={[
-                    commonStyles.rounded,
-                    commonStyles.square(32),
-                    commonStyles.marginRight5,
-                    avatarStyle,
-                ]}
-                resizeMode="cover"
-            /> */}
             <Text
                 numberOfLines={1}
                 style={[
