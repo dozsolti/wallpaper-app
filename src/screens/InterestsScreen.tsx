@@ -19,6 +19,7 @@ import { Interest } from "../models/Interest";
 import { Photo } from "../models/Photo";
 import PhotoService from "../services/PhotoService";
 import { INTEREST_RESULT_COUNT } from "../utils/constants";
+import { useStoreState } from "../store/store";
 
 const renderItem = ({ item }: { item: Photo }) => {
     return (
@@ -47,19 +48,22 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
     const onViewRef = useRef(({ changed }: { changed: ViewToken[] }) => {
         if (changed[0].index) setCurrentIndex(changed[0].index);
     });
-    const viewConfigRef = React.useRef({
+    const viewConfigRef = useRef({
         viewAreaCoveragePercentThreshold: 50,
     });
 
+    const isPhotoInAnyCollection = useStoreState(
+        (state) => state.isPhotoInAnyCollection
+    );
     const {
         interest,
         photos: oldPhotos,
     }: { interest: Interest; photos: Photo[] } = route.params;
 
     useEffect(() => {
-        if(oldPhotos){
+        if (oldPhotos) {
             setPhotos(oldPhotos);
-            pageNumber.current = oldPhotos.length
+            pageNumber.current = oldPhotos.length;
         }
     }, [oldPhotos]);
 
@@ -158,7 +162,11 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
                         onPress={() => setIsModalVisible(true)}
                         style={[commonStyles.marginRight6]}>
                         <MaterialCommunityIcons
-                            name="heart-outline"
+                            name={
+                                isPhotoInAnyCollection(photos[currentIndex])
+                                    ? "heart"
+                                    : "heart-outline"
+                            }
                             size={28}
                             color="white"
                         />

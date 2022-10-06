@@ -119,7 +119,7 @@ const store = createStore<StoreModel>({
 
     isPhotoInAnyCollection: computed(
         (state) => (photo: Photo) =>
-            Object.values(state.collections).findIndex((x) =>
+            !photo ? false : Object.values(state.collections).findIndex((x) =>
                 x.hasPhoto(photo)
             ) != -1
     ),
