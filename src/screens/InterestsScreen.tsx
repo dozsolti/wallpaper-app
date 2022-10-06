@@ -18,6 +18,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Interest } from "../models/Interest";
 import { Photo } from "../models/Photo";
 import PhotoService from "../services/PhotoService";
+import { INTEREST_RESULT_COUNT } from "../utils/constants";
 
 const renderItem = ({ item }: { item: Photo }) => {
     return (
@@ -56,12 +57,15 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
     }: { interest: Interest; photos: Photo[] } = route.params;
 
     useEffect(() => {
-        setPhotos(oldPhotos);
+        if(oldPhotos){
+            setPhotos(oldPhotos);
+            pageNumber.current = oldPhotos.length
+        }
     }, [oldPhotos]);
 
     const loadMorePhotos = async () => {
         ToastAndroid.show("Loading more...", ToastAndroid.SHORT);
-        pageNumber.current++;
+        pageNumber.current += INTEREST_RESULT_COUNT;
         const photos = await PhotoService.getPhotosByInterestId(
             interest.id,
             pageNumber.current

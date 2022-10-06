@@ -24,3 +24,4 @@ export const ALL_INTERESTS = [
 ];
 
 export const SEARCH_RESULT_COUNT = 10
+export const INTEREST_RESULT_COUNT = 3
