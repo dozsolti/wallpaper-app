@@ -1,7 +1,11 @@
 import axios from "axios";
 import { Author } from "../models/Author";
 import { Photo } from "../models/Photo";
-import { SEARCH_RESULT_COUNT, INTEREST_RESULT_COUNT } from "../utils/constants";
+import {
+    SEARCH_RESULT_COUNT,
+    INTEREST_RESULT_COUNT,
+    RANDOM_LOCK,
+} from "../utils/constants";
 
 class PhotoService {
     #width = 1080;
@@ -27,10 +31,7 @@ class PhotoService {
         "tagMode": "all",
         "tags": "all",
         "width": 720,*/
-    getPhoto(
-        keyword = "all",
-        random = Math.floor(Math.random() * 9999)
-    ): Promise<Photo | null> {
+    getPhoto(keyword = "all", random = RANDOM_LOCK()): Promise<Photo | null> {
         return axios
             .get(
                 `${this.#baseUrl}/${this.#width}/${
@@ -41,7 +42,6 @@ class PhotoService {
                 const result = response.data;
 
                 return new Photo({
-                    id: random + "",
                     author: new Author(result.owner),
                     previewUrl: result.file,
                     license: result.license,

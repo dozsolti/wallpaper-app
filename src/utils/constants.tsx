@@ -23,5 +23,7 @@ export const ALL_INTERESTS = [
     new Interest("War"),
 ];
 
-export const SEARCH_RESULT_COUNT = 10
-export const INTEREST_RESULT_COUNT = 3
+export const SEARCH_RESULT_COUNT = 10;
+export const INTEREST_RESULT_COUNT = 3;
+
+export const RANDOM_LOCK = () => Math.floor(Math.random() * 9999);
