@@ -72,7 +72,7 @@ export const store = createStore<StoreModel>({
             {
                 liked: new Collection({
                     name: "Liked",
-                    createdAt: new Date(99999999999999),
+                    createdAt: 99999999999999,
                 }), // create at Infinity because it has to be first in the lists.
             }
         );

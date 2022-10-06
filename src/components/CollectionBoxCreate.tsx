@@ -41,7 +41,7 @@ const CollectionBoxCreate: React.FC<Props> = ({ onSubmit }) => {
 
     const Submit = () => {
         if (!canSubmit) return;
-        const collection = new Collection({ name, createdAt: new Date() });
+        const collection = new Collection({ name, createdAt: Date.now() });
         createCollection(collection);
         setName("");
         setIsAddMode(false);

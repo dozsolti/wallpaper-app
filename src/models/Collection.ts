@@ -5,7 +5,7 @@ export class Collection {
     id: string;
     name: string;
     photos: Photo[];
-    createdAt: Date;
+    createdAt: number;
 
     constructor({
         name,
@@ -13,14 +13,14 @@ export class Collection {
         photos,
     }: {
         name: string;
-        createdAt?: Date;
+        createdAt?: number;
         photos?: Photo[];
     }) {
         this.id = toSlugCase(name);
         this.name = name;
         this.photos = photos ? photos : [];
 
-        this.createdAt = createdAt ? createdAt : new Date();
+        this.createdAt = createdAt ? createdAt : Date.now();
     }
 
     get previewUrl() {
