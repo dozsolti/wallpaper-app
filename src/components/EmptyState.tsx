@@ -4,18 +4,19 @@ import { colors } from "../utils/colors";
 import { commonStyles } from "../utils/commonStyles";
 
 type Props = {
-    text?: string;
+  text?: string;
 };
 
-const EmptyState: React.FC<Props> = ({ text = "No date just yet" }) => {
-    return (
-        <View style={[commonStyles.fill, commonStyles.center]}>
-            <Text
-                style={[commonStyles.heading2, { color: colors.darkestGray }]}>
-                {text}
-            </Text>
-        </View>
-    );
+const EmptyState: React.FC<Props> = ({
+  text = "Nothing to show you this time",
+}) => {
+  return (
+    <View style={[commonStyles.center]}>
+      <Text style={[commonStyles.text, { color: colors.darkestGray }]}>
+        {text}
+      </Text>
+    </View>
+  );
 };
 
 export default EmptyState;

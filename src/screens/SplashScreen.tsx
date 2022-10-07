@@ -5,82 +5,84 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useStoreActions } from "../store/store";
 
 type Props = {
-    navigation: StackNavigationProp<any>;
+  navigation: StackNavigationProp<any>;
 };
 const SplashScreen: React.FC<Props> = ({ navigation }) => {
-    const loadSavedInterests = useStoreActions(
-        (actions) => actions.loadSavedInterests
+  const loadSavedInterests = useStoreActions(
+    (actions) => actions.loadSavedInterests
+  );
+  const loadSavedCollections = useStoreActions(
+    (actions) => actions.loadSavedCollections
+  );
+
+  const loadData = useCallback(async () => {
+    const wasInterestSaved = await loadSavedInterests();
+    await loadSavedCollections();
+    return wasInterestSaved;
+  }, [loadSavedCollections, loadSavedInterests]);
+
+  const goNext = useCallback(async () => {
+    const wasData = await loadData();
+    if (wasData) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Main" }],
+      });
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Welcome" }],
+      });
+    }
+  }, [loadData, navigation]);
+
+  const backButtonHandler = useCallback(() => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+      return true;
+    }
+
+    Alert.alert(
+      "Exit App",
+      "Exiting the application?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => BackHandler.exitApp(),
+        },
+      ],
+      {
+        cancelable: false,
+      }
     );
-    const loadSavedCollections = useStoreActions(
-        (actions) => actions.loadSavedCollections
-    );
+    return true;
+  }, [navigation]);
 
-    const loadData = async () => {
-        const wasInterestSaved = await loadSavedInterests();
-        await loadSavedCollections();
-        return wasInterestSaved;
-    };
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
+    goNext();
+  }, [backButtonHandler, goNext]);
 
-    const goNext = async () => {
-        const wasData = await loadData();
-        if (wasData)
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "Main" }],
-            });
-        else
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "Welcome" }],
-            });
-    };
-
-    useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
-        goNext();
-    }, []);
-
-    const backButtonHandler = () => {
-        if (navigation.canGoBack()) {
-            navigation.goBack();
-            return true;
-        }
-
-        Alert.alert(
-            "Exit App",
-            "Exiting the application?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel",
-                },
-                {
-                    text: "OK",
-                    onPress: () => BackHandler.exitApp(),
-                },
-            ],
-            {
-                cancelable: false,
-            }
-        );
-        return true;
-    };
-
-    return (
-        <View style={[commonStyles.container]}>
-            <View style={[commonStyles.container, commonStyles.center]}>
-                <Text
-                    style={[
-                        commonStyles.heading1,
-                        commonStyles.textCenter,
-                        commonStyles.marginVertical3,
-                    ]}>
-                    Wallpapers
-                </Text>
-            </View>
-        </View>
-    );
+  return (
+    <View style={[commonStyles.container]}>
+      <View style={[commonStyles.container, commonStyles.center]}>
+        <Text
+          style={[
+            commonStyles.heading1,
+            commonStyles.textCenter,
+            commonStyles.marginVertical3,
+          ]}
+        >
+          Wallpapers
+        </Text>
+      </View>
+    </View>
+  );
 };
 
 export default SplashScreen;

@@ -9,91 +9,89 @@ import { ALL_INTERESTS } from "../utils/constants";
 import { useStoreActions } from "../store/store";
 
 type Props = {
-    navigation: StackNavigationProp<any>;
-    route: any;
+  navigation: StackNavigationProp<any>;
+  route: any;
 };
 const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
-    const { isFromSettings } = route.params || {};
+  const { isFromSettings } = route.params || {};
 
-    const [selectedInterests, setSelectedInterests] = React.useState<
-        Interest[]
-    >([ALL_INTERESTS[0]]);
+  const [selectedInterests, setSelectedInterests] = React.useState<Interest[]>([
+    ALL_INTERESTS[0],
+  ]);
 
-    const updateInterests = useStoreActions(
-        (actions) => actions.updateInterests
-    );
+  const updateInterests = useStoreActions((actions) => actions.updateInterests);
 
-    const isSelected = (interestId: string) => {
-        return selectedInterests.findIndex((x) => x.id == interestId) != -1;
-    };
+  const isSelected = (interestId: string) => {
+    return selectedInterests.findIndex((x) => x.id === interestId) !== -1;
+  };
 
-    const toggleInterest = (interest: Interest) => {
-        setSelectedInterests((interests) => {
-            const interestIndex = interests.findIndex(
-                (x) => x.id == interest.id
-            );
+  const toggleInterest = (interest: Interest) => {
+    setSelectedInterests((interests) => {
+      const interestIndex = interests.findIndex((x) => x.id === interest.id);
 
-            if (interestIndex === -1) {
-                interests = [...interests, interest];
-            } else {
-                interests = interests.filter((_, i) => i != interestIndex);
-            }
+      if (interestIndex === -1) {
+        interests = [...interests, interest];
+      } else {
+        interests = interests.filter((_, i) => i !== interestIndex);
+      }
 
-            return interests;
-        });
-    };
+      return interests;
+    });
+  };
 
-    const goNext = async () => {
-        await updateInterests(selectedInterests);
-        navigation.reset({
-            index: 0,
-            routes: [{ name: "Main" }],
-        });
-    };
+  const goNext = async () => {
+    await updateInterests(selectedInterests);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Main" }],
+    });
+  };
 
-    return (
-        <>
-            <ScrollView style={[commonStyles.screenContainer]}>
-                <Text style={[commonStyles.heading3, commonStyles.textCenter]}>
-                    Your interests
-                </Text>
-                <Text style={[commonStyles.text, commonStyles.marginTop4]}>
-                    Please select your interests so that we can show you only
-                    the relevant content.
-                </Text>
-                <View
-                    style={[
-                        { flex: 1, flexDirection: "row", flexWrap: "wrap" },
-                        commonStyles.marginTop5,
-                    ]}>
-                    {ALL_INTERESTS.map((interest, index) => (
-                        <Chip
-                            key={index}
-                            text={interest.name}
-                            style={commonStyles.margin3}
-                            active={isSelected(interest.id)}
-                            onPress={() => toggleInterest(interest)}
-                        />
-                    ))}
-                </View>
-            </ScrollView>
-            <View
-                style={[
-                    commonStyles.absoluteBottom,
-                    commonStyles.margin5,
-                    commonStyles.container,
-                    commonStyles.row,
-                    commonStyles.center,
-                ]}>
-                <Button
-                    text={isFromSettings ? "Continue" : "Start"}
-                    fluid
-                    disabled={selectedInterests.length < 1}
-                    onPress={goNext}
-                />
-            </View>
-        </>
-    );
+  return (
+    <>
+      <ScrollView style={[commonStyles.screenContainer]}>
+        <Text style={[commonStyles.heading3, commonStyles.textCenter]}>
+          Your interests
+        </Text>
+        <Text style={[commonStyles.text, commonStyles.marginTop4]}>
+          Please select your interests so that we can show you only the relevant
+          content.
+        </Text>
+        <View
+          style={[
+            { flex: 1, flexDirection: "row", flexWrap: "wrap" },
+            commonStyles.marginTop5,
+          ]}
+        >
+          {ALL_INTERESTS.map((interest, index) => (
+            <Chip
+              key={index}
+              text={interest.name}
+              style={commonStyles.margin3}
+              active={isSelected(interest.id)}
+              onPress={() => toggleInterest(interest)}
+            />
+          ))}
+        </View>
+      </ScrollView>
+      <View
+        style={[
+          commonStyles.absoluteBottom,
+          commonStyles.margin5,
+          commonStyles.container,
+          commonStyles.row,
+          commonStyles.center,
+        ]}
+      >
+        <Button
+          text={isFromSettings ? "Continue" : "Start"}
+          fluid
+          disabled={selectedInterests.length < 1}
+          onPress={goNext}
+        />
+      </View>
+    </>
+  );
 };
 
 export default SelectInterestsScreen;

@@ -5,7 +5,8 @@
             "files": ["*"],
             "extends": [],
             "rules": {
-                "quotes": [1, "double"]
+                "quotes": [1, "double"],
+                "react-native/no-inline-styles": 0
             }
         }
     ]

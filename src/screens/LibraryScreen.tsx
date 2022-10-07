@@ -6,39 +6,34 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useStoreState } from "../store/store";
 
 type Props = {
-    navigation: StackNavigationProp<any>;
+  navigation: StackNavigationProp<any>;
 };
 const LibraryScreen: React.FC<Props> = ({ navigation }) => {
-    const collectionsAsArray = useStoreState(
-        (state) => state.collectionsAsArray
-    );
+  const collectionsAsArray = useStoreState((state) => state.collectionsAsArray);
 
-    return (
-        <ScrollView overScrollMode="never">
-            <Text
-                style={[
-                    commonStyles.heading2,
-                    commonStyles.textCenter,
-                    commonStyles.marginVertical2,
-                ]}>
-                Library
-            </Text>
-            {/* <ThumbnailCarousel
-                title="Downloaded"
-                style={[commonStyles.marginBottom6]}
-            /> */}
-            {collectionsAsArray.map((collection) => (
-                <ThumbnailCarousel
-                    key={`collection-${collection.id}`}
-                    photos={collection.photos}
-                    title={collection.name}
-                    onPressSeeAll={() => {
-                        navigation.navigate("LibraryPhotos", { collection });
-                    }}
-                />
-            ))}
-        </ScrollView>
-    );
+  return (
+    <ScrollView overScrollMode="never">
+      <Text
+        style={[
+          commonStyles.heading2,
+          commonStyles.textCenter,
+          commonStyles.marginVertical2,
+        ]}
+      >
+        Library
+      </Text>
+      {collectionsAsArray.map((collection) => (
+        <ThumbnailCarousel
+          key={`collection-${collection.id}`}
+          photos={collection.photos}
+          title={collection.name}
+          onPressSeeAll={() => {
+            navigation.navigate("LibraryPhotos", { collection });
+          }}
+        />
+      ))}
+    </ScrollView>
+  );
 };
 
 export default LibraryScreen;

@@ -18,44 +18,38 @@ import SplashScreen from "../screens/SplashScreen";
 const Stack = createSharedElementStackNavigator();
 
 const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        ...colors,
-    },
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    ...colors,
+  },
 };
 
 const StartNavigator = () => {
-    return (
-        <NavigationContainer theme={MyTheme}>
-            <Stack.Navigator screenOptions={NO_HEADER}>
-                <Stack.Screen name="Splash" component={SplashScreen} />
-                <Stack.Screen name="Welcome" component={WelcomeScreen} />
-                <Stack.Screen
-                    name="SelectInterests"
-                    component={SelectInterestsScreen}
-                />
-                <Stack.Screen
-                    name="Main"
-                    component={MainNavigator}
-                />
-                <Stack.Screen
-                    name="Photo"
-                    component={PhotoScreen}
-                    sharedElements={(route, otherRoute, showing) => {
-                        const { photo } = route.params;
-                        return [`photo-${photo.id}`];
-                    }}
-                />
-                <Stack.Screen name="Interests" component={InterestsScreen} />
-                <Stack.Screen
-                    name="LibraryPhotos"
-                    component={LibraryPhotosScreen}
-                />
-                <Stack.Screen name="Profile" component={ProfileScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator screenOptions={NO_HEADER}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen
+          name="SelectInterests"
+          component={SelectInterestsScreen}
+        />
+        <Stack.Screen name="Main" component={MainNavigator} />
+        <Stack.Screen
+          name="Photo"
+          component={PhotoScreen}
+          sharedElements={(route) => {
+            const { photo } = route.params;
+            return [`photo-${photo.id}`];
+          }}
+        />
+        <Stack.Screen name="Interests" component={InterestsScreen} />
+        <Stack.Screen name="LibraryPhotos" component={LibraryPhotosScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default StartNavigator;

@@ -2,48 +2,48 @@ import toSlugCase from "to-slug-case";
 import { Photo } from "./Photo";
 
 export class Collection {
-    id: string;
+  id: string;
+  name: string;
+  photos: Photo[];
+  createdAt: number;
+
+  deletable: boolean;
+
+  constructor({
+    name,
+    photos = [],
+    createdAt = Date.now(),
+    deletable = true,
+  }: {
     name: string;
-    photos: Photo[];
-    createdAt: number;
+    createdAt?: number;
+    photos?: Photo[];
+    deletable?: boolean;
+  }) {
+    this.id = toSlugCase(name);
+    this.name = name;
+    this.photos = photos;
 
-    deletable: boolean;
+    this.createdAt = createdAt;
+    this.deletable = deletable;
+  }
 
-    constructor({
-        name,
-        photos = [],
-        createdAt = Date.now(),
-        deletable = true,
-    }: {
-        name: string;
-        createdAt?: number;
-        photos?: Photo[];
-        deletable?: boolean;
-    }) {
-        this.id = toSlugCase(name);
-        this.name = name;
-        this.photos = photos;
+  get url() {
+    return this.photos?.[0]?.url ?? "";
+  }
 
-        this.createdAt = createdAt;
-        this.deletable = deletable;
-    }
+  hasPhoto(photo: Photo): boolean {
+    return this.photos.findIndex((p) => p.id === photo.id) !== -1;
+  }
 
-    get url() {
-        return this.photos?.[0]?.url ?? "";
-    }
+  removePhoto(photo: Photo) {
+    this.photos = this.photos.filter((p) => p.id !== photo.id);
+  }
+  addPhoto(photo: Photo) {
+    this.photos.push(photo);
+  }
 
-    hasPhoto(photo: Photo): boolean {
-        return this.photos.findIndex((p) => p.id == photo.id) != -1;
-    }
-
-    removePhoto(photo: Photo) {
-        this.photos = this.photos.filter((p) => p.id != photo.id);
-    }
-    addPhoto(photo: Photo) {
-        this.photos.push(photo);
-    }
-
-    static SORT_CHRONOLOGICALLY(a: Collection, b: Collection) {
-        return b.createdAt.valueOf() - a.createdAt.valueOf();
-    }
+  static SORT_CHRONOLOGICALLY(a: Collection, b: Collection) {
+    return b.createdAt.valueOf() - a.createdAt.valueOf();
+  }
 }
