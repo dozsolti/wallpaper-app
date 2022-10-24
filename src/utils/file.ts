@@ -1,6 +1,7 @@
 import * as MediaLibrary from "expo-media-library";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
+import LanguageService from "../services/LanguageService";
 
 export const downloadFile = async (url: string) => {
   const pathParts = url.split("?")[0].split("/");
@@ -9,7 +10,7 @@ export const downloadFile = async (url: string) => {
   const hasPermission = await askForPermission();
   if (!hasPermission) {
     // eslint-disable-next-line no-alert
-    return alert("Permission required");
+    return alert(LanguageService.t("common.permissionRequired"));
   }
 
   const { uri } = await FileSystem.downloadAsync(

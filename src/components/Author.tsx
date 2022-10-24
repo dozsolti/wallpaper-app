@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, Linking } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { colors } from "../utils/colors";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   name: string | undefined;
@@ -20,6 +21,7 @@ const Author: React.FC<Props> = ({
   containerStyle = {},
   textStyle = {},
 }) => {
+  const { t } = useTranslation();
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -43,7 +45,7 @@ const Author: React.FC<Props> = ({
       </Text>
       {!disabled ? (
         <Text style={[{ color: colors.gray }, { margin: 0, padding: 0 }]}>
-          License: {license}
+          {t("common.license")}: {license}
         </Text>
       ) : null}
     </TouchableOpacity>

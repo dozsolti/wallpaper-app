@@ -7,6 +7,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Interest } from "../models/Interest";
 import { ALL_INTERESTS } from "../utils/constants";
 import { useStoreActions } from "../store/store";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -14,6 +15,8 @@ type Props = {
 };
 const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
   const { isFromSettings } = route.params || {};
+
+  const { t } = useTranslation();
 
   const [selectedInterests, setSelectedInterests] = React.useState<Interest[]>([
     ALL_INTERESTS[0],
@@ -51,11 +54,10 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
     <>
       <ScrollView style={[commonStyles.screenContainer]}>
         <Text style={[commonStyles.heading3, commonStyles.textCenter]}>
-          Your interests
+          {t("screens.selectInterests.title")}
         </Text>
         <Text style={[commonStyles.text, commonStyles.marginTop4]}>
-          Please select your interests so that we can show you only the relevant
-          content.
+          {t("screens.selectInterests.description")}
         </Text>
         <View
           style={[
@@ -84,7 +86,7 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
         ]}
       >
         <Button
-          text={isFromSettings ? "Continue" : "Start"}
+          text={t(`common.${isFromSettings ? "continue" : "start"}`)}
           fluid
           disabled={selectedInterests.length < 1}
           onPress={goNext}

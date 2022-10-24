@@ -7,6 +7,7 @@ import CollectionBoxCreate from "./CollectionBoxCreate";
 import CollectionBox from "./CollectionBox";
 import { Photo } from "../models/Photo";
 import { Collection } from "../models/Collection";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   photo: Photo;
@@ -14,6 +15,7 @@ type Props = {
   onClose: () => void;
 };
 const LikeModal: React.FC<Props> = ({ photo, visible = false, onClose }) => {
+  const { t } = useTranslation();
   const collectionsAsArray = useStoreState((state) => state.collectionsAsArray);
   const togglePhotoInCollection = useStoreActions(
     (actions) => actions.togglePhotoInCollection
@@ -51,7 +53,7 @@ const LikeModal: React.FC<Props> = ({ photo, visible = false, onClose }) => {
         ]}
       >
         <Text style={[commonStyles.heading3, { color: colors.background }]}>
-          Save in collection
+          {t("common.saveInCollection")}
         </Text>
 
         <ScrollView horizontal style={[commonStyles.marginVertical5]}>

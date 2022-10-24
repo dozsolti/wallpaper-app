@@ -11,6 +11,7 @@ import {
 import { Collection } from "../models/Collection";
 import { Interest } from "../models/Interest";
 import { Photo } from "../models/Photo";
+import LanguageService from "../services/LanguageService";
 import StorageService, { STORAGE_KEYS } from "../services/StorageService";
 
 interface CollectionsType {
@@ -71,7 +72,7 @@ const store = createStore<StoreModel>({
       STORAGE_KEYS.COLLECTIONS,
       {
         liked: new Collection({
-          name: "Liked",
+          name: LanguageService.t("common.liked"),
           createdAt: 99999999999999,
           deletable: false,
         }), // create at Infinity because it has to be first in the lists.
@@ -129,7 +130,7 @@ const store = createStore<StoreModel>({
 
 const typedHooks = createTypedHooks<StoreModel>();
 
-(window as any).myApp = store;
+(window as any).myApp = { store };
 
 export { store };
 export const useStoreActions = typedHooks.useStoreActions;

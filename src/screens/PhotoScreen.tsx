@@ -12,6 +12,7 @@ import ImageZoom from "react-native-image-pan-zoom";
 import { useStoreState } from "../store/store";
 import { downloadFile } from "../utils/file";
 import Toast from "react-native-simple-toast";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -20,7 +21,7 @@ type Props = {
 
 const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const { t } = useTranslation();
   const { photo }: { photo: Photo } = route.params;
 
   const isPhotoInAnyCollection = useStoreState(
@@ -31,9 +32,9 @@ const PhotoScreen: React.FC<Props> = ({ navigation, route }) => {
     try {
       const fileURL = await downloadFile(photo.url);
       if (!fileURL) {
-        throw "Missing file url";
+        throw t("errors.missing.url");
       }
-      Toast.show("Download succeeded.");
+      Toast.show(t("common.downloadSucceeded"));
     } catch (err) {
       console.log(err);
       Toast.show(JSON.stringify(err), Toast.LONG);

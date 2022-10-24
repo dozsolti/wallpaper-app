@@ -1,0 +1,92 @@
+{
+  "translation": {
+    "languageName": "English",
+    "title": "Wallpapers",
+    "common": {
+      "license": "License",
+      "start": "Start",
+      "continue": "Continue",
+      "ok": "Ok",
+      "cancel": "Cancel",
+      "noInterests": "No interests",
+      "seeAll": "See all",
+      "loading": "Loading",
+      "add": "Add",
+      "liked": "Liked",
+      "saveInCollection": "Save in collection",
+      "permissionRequired": "Permission required",
+      "downloadSucceeded": "Download succeeded.",
+      "typeAnything": "Type anything",
+    },
+    "errors": {
+      "missing": {
+        "url": "Missing url"
+      },
+      "empty": {
+        "name": "Name cannot be empty!"
+      },
+      "exists": {
+        "collection": "Collection name already exists."
+      }
+    },
+    "modals": {
+      "exit": {
+        "title": "Exit app?",
+        "description": "Are you sure you want to leave the app?"
+      }
+    },
+    "components": {
+      "welcomeCarousel": {
+        "slides": [
+          { "title": "Welcome", "description": "abc" },
+          { "title": "We don't collect", "description": "abc" },
+          { "title": "Let's start!", "description": "abc" }
+        ]
+      },
+      "emptyState": {
+        "defaultText": "Nothing to show you this time"
+      }
+    },
+    "screens": {
+      "feed": {
+        "name": "Feed"
+      },
+      "search": {
+        "name": "Search"
+      },
+      "library": {
+        "name": "Library"
+      },
+      "settings": {
+        "name": "Settings",
+        "manageInterests": "Manage interests",
+        "selectLanguage": "Select language",
+        "footer": "Disclaimer: 'Every photo comes from Flickr and have a Creative Commons license.'"
+      },
+      "selectInterests": {
+        "title": "Your interests",
+        "description": "Please select your interests so that we can show you only the relevant content."
+      }
+    },
+    "interests": {
+      "art": "Art",
+      "business": "Business",
+      "culture": "Culture",
+      "education": "Education",
+      "environment": "Environment",
+      "health": "Health",
+      "humanRights": "Human rights",
+      "humanitarian": "Humanitarian",
+      "humanities": "Humanities",
+      "international": "International",
+      "law": "Law",
+      "politics": "Politics",
+      "science": "Science",
+      "social": "Social",
+      "sport": "Sport",
+      "technology": "Technology",
+      "transport": "Transport",
+      "war": "War"
+    }
+  }
+}

@@ -20,6 +20,7 @@ import PhotoService from "../services/PhotoService";
 import { INTEREST_RESULT_COUNT } from "../utils/constants";
 import { useStoreState } from "../store/store";
 import { useScrollSpy } from "../hooks/useScrollSpy";
+import { useTranslation } from "react-i18next";
 
 const renderItem = ({ item }: { item: Photo }) => {
   return (
@@ -39,6 +40,7 @@ type Props = {
   route: any;
 };
 const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
+  const { t } = useTranslation();
   const pageNumber = useRef(0);
   const [photos, setPhotos] = useState<Photo[]>([]);
 
@@ -62,7 +64,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
   }, [oldPhotos]);
 
   const loadMorePhotos = async () => {
-    ToastAndroid.show("Loading more...", ToastAndroid.SHORT);
+    ToastAndroid.show(t("common.loading") + "...", ToastAndroid.SHORT);
     pageNumber.current += INTEREST_RESULT_COUNT;
     const nextPhotos = await PhotoService.getPhotosByInterestId(
       interest.id,

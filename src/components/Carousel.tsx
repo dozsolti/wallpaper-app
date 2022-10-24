@@ -1,37 +1,17 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Text, View, Image } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Bullet from "./Bullet";
 
-type dataType = {
+type SlideType = {
   title: string;
   description: string;
   image: number;
 };
 
-const data: Array<dataType> = [
-  {
-    title: "Welcome",
-    description:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: require("../../assets/images/welcome1.png"),
-  },
-  {
-    title: "We don't collect",
-    description:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: require("../../assets/images/welcome2.png"),
-  },
-  {
-    title: "Let's start!",
-    description:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: require("../../assets/images/welcome3.png"),
-  },
-];
-
 type renderItemProps = {
-  item: dataType;
+  item: SlideType;
   index: number;
 };
 
@@ -48,7 +28,7 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
       <Image
         source={item.image}
         resizeMode="contain"
-        style={[commonStyles.square(300)]}
+        style={[commonStyles.square(250)]}
       />
       <Text style={[commonStyles.heading3, commonStyles.marginTop6]}>
         {item.title}
@@ -73,11 +53,34 @@ type Props = {
 };
 const Carousel: React.FC<Props> = forwardRef(
   ({ currentIndex, listProps }, ref) => {
+    const { t } = useTranslation();
+
+    const slides: Array<SlideType> = useMemo(
+      () => [
+        {
+          title: t("components.welcomeCarousel.slides.0.title"),
+          description: t("components.welcomeCarousel.slides.0.description"),
+          image: require("../../assets/images/welcome1.png"),
+        },
+        {
+          title: t("components.welcomeCarousel.slides.1.title"),
+          description: t("components.welcomeCarousel.slides.1.description"),
+          image: require("../../assets/images/welcome2.png"),
+        },
+        {
+          title: t("components.welcomeCarousel.slides.2.title"),
+          description: t("components.welcomeCarousel.slides.2.description"),
+          image: require("../../assets/images/welcome3.png"),
+        },
+      ],
+      [t]
+    );
+
     return (
       <>
         <FlatList
           ref={ref}
-          data={data}
+          data={slides}
           horizontal={true}
           pagingEnabled
           renderItem={renderItem}
@@ -89,7 +92,7 @@ const Carousel: React.FC<Props> = forwardRef(
 
         <View style={[commonStyles.row, commonStyles.spaceAround]}>
           <View style={[commonStyles.row]}>
-            {data.map((item, index) => (
+            {slides.map((item, index) => (
               <Bullet key={index} active={index === currentIndex} />
             ))}
           </View>

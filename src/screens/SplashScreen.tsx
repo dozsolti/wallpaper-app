@@ -3,11 +3,13 @@ import { View, Text, Alert, BackHandler } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useStoreActions } from "../store/store";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   navigation: StackNavigationProp<any>;
 };
 const SplashScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const loadSavedInterests = useStoreActions(
     (actions) => actions.loadSavedInterests
   );
@@ -22,7 +24,8 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
   }, [loadSavedCollections, loadSavedInterests]);
 
   const goNext = useCallback(async () => {
-    const wasData = await loadData();
+    await loadData();
+    const wasData = false;
     if (wasData) {
       navigation.reset({
         index: 0,
@@ -43,16 +46,16 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     Alert.alert(
-      "Exit App",
-      "Exiting the application?",
+      t("modals.exit.title"),
+      t("modals.exit.description"),
       [
         {
-          text: "Cancel",
+          text: t("common.cancel"),
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
         {
-          text: "OK",
+          text: t("common.ok"),
           onPress: () => BackHandler.exitApp(),
         },
       ],
@@ -61,7 +64,7 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
       }
     );
     return true;
-  }, [navigation]);
+  }, [navigation, t]);
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
@@ -78,7 +81,7 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
             commonStyles.marginVertical3,
           ]}
         >
-          Wallpapers
+          {t("title")}
         </Text>
       </View>
     </View>

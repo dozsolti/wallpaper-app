@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { Photo } from "../models/Photo";
 import { colors } from "../utils/colors";
@@ -25,6 +26,7 @@ const ThumbnailCarousel: React.FC<Props> = ({
   onPressSeeAll = undefined,
   style = {},
 }) => {
+  const { t } = useTranslation();
   return (
     <View
       style={[commonStyles.screenContainer, commonStyles.marginBottom4, style]}
@@ -44,7 +46,7 @@ const ThumbnailCarousel: React.FC<Props> = ({
             <Text
               style={[commonStyles.textSmall, { color: colors.darkestGray }]}
             >
-              SEE ALL
+              {t("common.seeAll")}
             </Text>
           </TouchableOpacity>
         ) : null}

@@ -9,6 +9,7 @@ import { commonStyles } from "../utils/commonStyles";
 import { SEARCH_RESULT_COUNT } from "../utils/constants";
 import { useFocusEffect } from "@react-navigation/native";
 import { splitArrayInChuncks } from "../utils/formatter";
+import { useTranslation } from "react-i18next";
 
 const renderItem = ({ item, index }: { item: Photo[]; index: number }) => {
   if (!item) {
@@ -65,6 +66,7 @@ const renderItem = ({ item, index }: { item: Photo[]; index: number }) => {
 };
 
 const SearchScreen = () => {
+  const { t } = useTranslation();
   const searchInput = useRef<TextInput>(null);
 
   const [photos, setPhotos] = useState<Photo[][]>([]);
@@ -110,13 +112,13 @@ const SearchScreen = () => {
             : []
         }
       >
-        <Text style={[commonStyles.heading3]}>Search</Text>
+        <Text style={[commonStyles.heading3]}>{t("screens.search.name")}</Text>
         <Input
           value={query}
           ref={searchInput}
           setValue={setQuery}
           onSubmit={doSearch}
-          placeholder="Type anything"
+          placeholder={t("common.typeAnything")}
           autoFocus={true}
           style={[commonStyles.width100]}
         />

@@ -7,6 +7,7 @@ import { useStoreState } from "../store/store";
 import PhotoService from "../services/PhotoService";
 import { Photo } from "../models/Photo";
 import { Interest } from "../models/Interest";
+import { useTranslation } from "react-i18next";
 
 type Entry = {
   photos: Photo[];
@@ -17,6 +18,7 @@ type Props = {
   navigation: StackNavigationProp<any>;
 };
 const FeedScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const interests = useStoreState((state) => state.interests);
 
   const [entries, setEntries] = useState<Entry[]>([]);
@@ -57,9 +59,9 @@ const FeedScreen: React.FC<Props> = ({ navigation }) => {
           commonStyles.marginVertical3,
         ]}
       >
-        Wallpapers
+        {t("title")}
       </Text>
-      {interests.length === 0 ? <Text>No interests :(</Text> : null}
+      {interests.length === 0 ? <Text> {t("common.noInterests")}</Text> : null}
       {entries.map((entry) => (
         <ThumbnailCarousel
           key={"interest-" + entry.interest.id}

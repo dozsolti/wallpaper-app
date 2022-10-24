@@ -10,6 +10,7 @@ import {
 import SearchScreen from "../screens/SearchScreen";
 import LibraryScreen from "../screens/LibraryScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import { useTranslation } from "react-i18next";
 
 interface IconsHashtableProp {
   [screenName: string]: (props: {
@@ -52,13 +53,14 @@ const icons: IconsHashtableProp = {
 const Tab = createBottomTabNavigator();
 
 function MainNavigator() {
+  const { t } = useTranslation();
   return (
     <Tab.Navigator screenOptions={NO_HEADER} initialRouteName="Feed">
       <Tab.Screen
         name="Feed"
         component={FeedScreen}
         options={{
-          tabBarLabel: "Feed",
+          tabBarLabel: t("screens.feed.name"),
           tabBarIcon: icons.FEED,
         }}
       />
@@ -66,7 +68,7 @@ function MainNavigator() {
         name="Search"
         component={SearchScreen}
         options={{
-          tabBarLabel: "Search",
+          tabBarLabel: t("screens.search.name"),
           tabBarIcon: icons.SEARCH,
         }}
       />
@@ -74,7 +76,7 @@ function MainNavigator() {
         name="Library"
         component={LibraryScreen}
         options={{
-          tabBarLabel: "Library",
+          tabBarLabel: t("screens.library.name"),
           tabBarIcon: icons.LIBRARY,
         }}
       />
@@ -82,7 +84,7 @@ function MainNavigator() {
         name="Settings"
         component={SettingsScreen}
         options={{
-          tabBarLabel: "Settings",
+          tabBarLabel: t("screens.settings.name"),
           tabBarIcon: icons.SETTINGS,
         }}
       />

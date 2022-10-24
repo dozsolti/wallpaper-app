@@ -7,11 +7,13 @@ import { useStoreActions, useStoreState } from "../store/store";
 import Input from "./Input";
 import { Collection } from "../models/Collection";
 import toSlugCase from "to-slug-case";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   onSubmit: (collection: Collection) => void;
 };
 const CollectionBoxCreate: React.FC<Props> = ({ onSubmit }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isAddMode, setIsAddMode] = useState(false);
@@ -40,15 +42,15 @@ const CollectionBoxCreate: React.FC<Props> = ({ onSubmit }) => {
   useEffect(() => {
     setError("");
     if (name.length === 0) {
-      setError("Name cannot be empty.");
+      setError(t("errors.empty.name"));
       return;
     }
     const id = toSlugCase(name);
     if (id in collections) {
-      setError("Collection name already exists.");
+      setError(t("errors.exists.collection"));
       return;
     }
-  }, [collections, name]);
+  }, [collections, name, t]);
 
   return (
     <TouchableOpacity
@@ -77,7 +79,7 @@ const CollectionBoxCreate: React.FC<Props> = ({ onSubmit }) => {
         />
       ) : (
         <Text style={[commonStyles.heading3, { color: colors.background }]}>
-          Add
+          {t("common.add")}
         </Text>
       )}
     </TouchableOpacity>

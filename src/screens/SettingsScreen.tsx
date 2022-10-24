@@ -4,11 +4,14 @@ import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { colors } from "../utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
+import LanguagePicker from "../components/LanguagePicker";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   navigation: StackNavigationProp<any>;
 };
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   return (
     <ScrollView
       overScrollMode="never"
@@ -22,7 +25,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           commonStyles.marginBottom6,
         ]}
       >
-        Settings
+        {t("screens.settings.name")}
       </Text>
       <View
         style={[
@@ -31,25 +34,36 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
           commonStyles.fill,
         ]}
       >
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("SelectInterests", {
-              isFromSettings: true,
-            });
-          }}
-          style={[
-            commonStyles.row,
-            commonStyles.spaceBetween,
-            commonStyles.centerRowVertical,
-            commonStyles.paddingHorizontal5,
-            commonStyles.marginBottom6,
-            commonStyles.paddingVertical4,
-            { backgroundColor: colors.gray },
-          ]}
-        >
-          <Text style={[commonStyles.heading3]}>Manage interests</Text>
-          <MaterialIcons name="arrow-right" size={24} color="black" />
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("SelectInterests", {
+                isFromSettings: true,
+              });
+            }}
+            style={[
+              commonStyles.row,
+              commonStyles.spaceBetween,
+              commonStyles.centerRowVertical,
+              commonStyles.paddingHorizontal5,
+              commonStyles.marginBottom6,
+              commonStyles.paddingVertical4,
+              { backgroundColor: colors.gray },
+            ]}
+          >
+            <Text style={[commonStyles.text]}>
+              {t("screens.settings.manageInterests")}
+            </Text>
+            <MaterialIcons name="arrow-right" size={24} color="black" />
+          </TouchableOpacity>
+
+          <View>
+            <Text style={[commonStyles.text, commonStyles.marginHorizontal4]}>
+              {t("screens.settings.selectLanguage")}
+            </Text>
+            <LanguagePicker />
+          </View>
+        </View>
 
         <Text
           style={[
@@ -61,8 +75,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             },
           ]}
         >
-          Disclaimer: 'Every photo comes from Flickr and have a Creative Commons
-          license.'
+          {t("screens.settings.footer")}
         </Text>
       </View>
     </ScrollView>

@@ -5,22 +5,26 @@ import Carousel from "../components/Carousel";
 import Button from "../components/Button";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useScrollSpy } from "../hooks/useScrollSpy";
+import LanguagePicker from "../components/LanguagePicker";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   navigation: StackNavigationProp<any>;
 };
 const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const { currentIndex, listProps } = useScrollSpy();
 
   const list = useRef<FlatList>(null);
 
   const scrollToNext = useCallback(() => {
-    if (list.current) {
-      list.current.scrollToIndex({
-        index: currentIndex + 1,
-        animated: true,
-      });
+    if (!list.current) {
+      return;
     }
+    list.current.scrollToIndex({
+      index: currentIndex + 1,
+      animated: true,
+    });
   }, [currentIndex]);
 
   const isScrollDone = useMemo(
@@ -34,14 +38,15 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
       <View
         style={[
           commonStyles.container,
-          commonStyles.row,
-          commonStyles.center,
+          commonStyles.stack,
+          commonStyles.spaceEvenly,
           commonStyles.paddingHorizontal4,
         ]}
       >
+        <LanguagePicker />
         <Button
-          text={isScrollDone ? "Start" : "Continue"}
-          fluid
+          text={t(`common.${isScrollDone ? "start" : "continue"}`)}
+          // fluid
           onPress={() => {
             if (isScrollDone) {
               navigation.navigate("SelectInterests");
