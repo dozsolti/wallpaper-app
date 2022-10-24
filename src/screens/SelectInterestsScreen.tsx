@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ScrollView, View, Text } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Chip from "../components/Chip";
 import Button from "../components/Button";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Interest } from "../models/Interest";
-import { ALL_INTERESTS } from "../utils/constants";
 import { useStoreActions } from "../store/store";
 import { useTranslation } from "react-i18next";
 
@@ -17,6 +16,30 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
   const { isFromSettings } = route.params || {};
 
   const { t } = useTranslation();
+
+  const ALL_INTERESTS = useMemo(
+    () => [
+      new Interest(t("interests.art")),
+      new Interest(t("interests.business")),
+      new Interest(t("interests.culture")),
+      new Interest(t("interests.education")),
+      new Interest(t("interests.environment")),
+      new Interest(t("interests.health")),
+      new Interest(t("interests.humanRights")),
+      new Interest(t("interests.humanitarian")),
+      new Interest(t("interests.humanities")),
+      new Interest(t("interests.international")),
+      new Interest(t("interests.law")),
+      new Interest(t("interests.politics")),
+      new Interest(t("interests.science")),
+      new Interest(t("interests.social")),
+      new Interest(t("interests.sport")),
+      new Interest(t("interests.technology")),
+      new Interest(t("interests.transport")),
+      new Interest(t("interests.war")),
+    ],
+    [t]
+  );
 
   const [selectedInterests, setSelectedInterests] = React.useState<Interest[]>([
     ALL_INTERESTS[0],
