@@ -1,13 +1,83 @@
 import React, { useMemo } from "react";
-import { ScrollView, View } from "react-native";
+import { View, FlatList, Image, TouchableOpacity } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import Chip from "../components/Chip";
 import Button from "../components/Button";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Interest } from "../models/Interest";
-import { useStoreActions } from "../store/store";
+import { useStoreActions, useStoreState } from "../store/store";
 import { useTranslation } from "react-i18next";
 import Text from "../components/Text";
+import { LinearGradient } from "expo-linear-gradient";
+import { ThemeColors } from "../themes";
+
+const renderItem = ({
+  interest,
+  colors,
+  selected,
+  onPress,
+}: {
+  interest: Interest;
+  colors: ThemeColors;
+  selected: boolean;
+  onPress: () => void;
+}) => (
+  <TouchableOpacity
+    style={[
+      { aspectRatio: 120 / 155 },
+      commonStyles.marginTop5,
+      commonStyles.marginHorizontal3,
+      commonStyles.fill,
+      commonStyles.roundedSmall,
+      { overflow: "hidden" },
+      selected
+        ? {
+            shadowColor: colors.primary,
+            shadowOffset: {
+              width: 0,
+              height: 5,
+            },
+            shadowOpacity: 0.2,
+            shadowRadius: 5.62,
+            elevation: 7,
+          }
+        : {},
+    ]}
+    onPress={onPress}
+  >
+    <Image
+      source={{ uri: `https://loremflickr.com/120/155/${interest.id}?lock=1` }}
+      style={[
+        commonStyles.container,
+        selected
+          ? {
+              borderColor: colors.primary,
+              borderWidth: 5,
+            }
+          : {},
+      ]}
+      resizeMode="cover"
+    />
+    <>
+      <LinearGradient
+        colors={["transparent", "rgba(0,0,0,0.8)"]}
+        style={[
+          commonStyles.absoluteBottom,
+          commonStyles.roundedSmall,
+          commonStyles.heightHalf,
+        ]}
+      />
+      <Text
+        style={[
+          commonStyles.absoluteBottom,
+          commonStyles.padding4,
+          { color: colors.white },
+        ]}
+      >
+        {interest.name}
+      </Text>
+    </>
+  </TouchableOpacity>
+);
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -15,6 +85,7 @@ type Props = {
 };
 const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
   const { isFromSettings } = route.params || {};
+  const colors = useStoreState((state) => state.colors);
 
   const { t } = useTranslation();
 
@@ -76,30 +147,37 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
 
   return (
     <>
-      <ScrollView style={[commonStyles.screenContainer]}>
-        <Text style={[commonStyles.heading3, commonStyles.textCenter]}>
-          {t("screens.selectInterests.title")}
-        </Text>
-        <Text style={[commonStyles.text, commonStyles.marginTop4]}>
-          {t("screens.selectInterests.description")}
-        </Text>
-        <View
-          style={[
-            { flex: 1, flexDirection: "row", flexWrap: "wrap" },
-            commonStyles.marginTop5,
-          ]}
-        >
-          {ALL_INTERESTS.map((interest, index) => (
-            <Chip
-              key={index}
-              text={interest.name}
-              style={commonStyles.margin3}
-              active={isSelected(interest.id)}
-              onPress={() => toggleInterest(interest)}
-            />
-          ))}
-        </View>
-      </ScrollView>
+      <View
+        style={[
+          commonStyles.screenContainer,
+          commonStyles.padding0,
+          commonStyles.marginBottom6,
+          commonStyles.paddingBottom6,
+        ]}
+      >
+        <FlatList
+          data={ALL_INTERESTS}
+          numColumns={2}
+          renderItem={({ item: interest }) =>
+            renderItem({
+              interest,
+              colors,
+              selected: isSelected(interest.id),
+              onPress: () => toggleInterest(interest),
+            })
+          }
+          ListHeaderComponent={
+            <>
+              <Text style={[commonStyles.heading3, commonStyles.textCenter]}>
+                {t("screens.selectInterests.title")}
+              </Text>
+              <Text style={[commonStyles.text, commonStyles.marginTop4]}>
+                {t("screens.selectInterests.description")}
+              </Text>
+            </>
+          }
+        />
+      </View>
       <View
         style={[
           commonStyles.absoluteBottom,

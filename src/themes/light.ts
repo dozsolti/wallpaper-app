@@ -19,6 +19,6 @@ export const light = {
   danger: "#770019",
 
   text: "#212427",
-  inputPlaceholder: "#736e6d", // ?
+  inputPlaceholder: "#736e6d",
   inputBackground: "#C9BBB5",
 };
