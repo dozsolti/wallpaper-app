@@ -13,11 +13,21 @@ import { Interest } from "../models/Interest";
 import { Photo } from "../models/Photo";
 import LanguageService from "../services/LanguageService";
 import StorageService, { STORAGE_KEYS } from "../services/StorageService";
+import { Appearance } from "react-native";
+import { DEFAULT_THEME } from "../utils/constants";
+import { ThemeColors, themes } from "../themes";
+
+type Theme = keyof typeof themes;
 
 interface CollectionsType {
   [collectionId: string]: Collection;
 }
 interface StoreModel {
+  colors: Computed<StoreModel, ThemeColors>;
+
+  theme: Theme;
+  setTheme: Action<StoreModel, Theme>;
+
   interests: Interest[];
   _setInterests: Action<StoreModel, Interest[]>;
   updateInterests: Thunk<StoreModel, Interest[]>;
@@ -39,6 +49,13 @@ interface StoreModel {
 }
 
 const store = createStore<StoreModel>({
+  theme: Appearance.getColorScheme() ?? DEFAULT_THEME,
+  setTheme: action((state, theme) => {
+    state.theme = theme;
+  }),
+
+  colors: computed((state) => themes[state.theme]),
+
   interests: [],
   _setInterests: action((state, selectedInterests) => {
     state.interests = selectedInterests.sort(Interest.SORT_ALPHABETICAL);

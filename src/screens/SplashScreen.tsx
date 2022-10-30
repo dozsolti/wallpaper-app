@@ -1,9 +1,10 @@
 import React, { useEffect, useCallback } from "react";
-import { View, Text, Alert, BackHandler } from "react-native";
+import { View, Alert, BackHandler } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useStoreActions } from "../store/store";
 import { useTranslation } from "react-i18next";
+import Text from "../components/Text";
 
 type Props = {
   navigation: StackNavigationProp<any>;

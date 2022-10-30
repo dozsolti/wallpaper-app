@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, TouchableOpacity, FlatList } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Thumbnail from "../components/Thumbnail";
@@ -7,7 +7,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Collection } from "../models/Collection";
 import { Photo } from "../models/Photo";
 import EmptyState from "../components/EmptyState";
-import { useStoreActions } from "../store/store";
+import { useStoreActions, useStoreState } from "../store/store";
+import Text from "../components/Text";
 
 const renderItem = ({ item }: { item: Photo }) => {
   return (
@@ -28,6 +29,8 @@ type Props = {
 };
 const LibraryPhotosScreen: React.FC<Props> = ({ navigation, route }) => {
   const collection: Collection = route.params.collection;
+
+  const colors = useStoreState((state) => state.colors);
 
   const deleteCollectionById = useStoreActions(
     (actions) => actions.deleteCollectionById
@@ -57,7 +60,11 @@ const LibraryPhotosScreen: React.FC<Props> = ({ navigation, route }) => {
             ]}
             onPress={() => navigation.goBack()}
           >
-            <MaterialCommunityIcons name="arrow-left" size={24} />
+            <MaterialCommunityIcons
+              name="arrow-left"
+              size={24}
+              color={colors.text}
+            />
           </TouchableOpacity>
           <Text
             style={[
@@ -78,7 +85,11 @@ const LibraryPhotosScreen: React.FC<Props> = ({ navigation, route }) => {
               ]}
               onPress={deleteCollection}
             >
-              <MaterialCommunityIcons name="delete" size={24} />
+              <MaterialCommunityIcons
+                name="delete"
+                size={24}
+                color={colors.text}
+              />
             </TouchableOpacity>
           ) : null}
         </View>

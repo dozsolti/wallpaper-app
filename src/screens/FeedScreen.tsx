@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import ThumbnailCarousel from "../components/ThumbnailCarousel";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -8,6 +8,7 @@ import PhotoService from "../services/PhotoService";
 import { Photo } from "../models/Photo";
 import { Interest } from "../models/Interest";
 import { useTranslation } from "react-i18next";
+import Text from "../components/Text";
 
 type Entry = {
   photos: Photo[];

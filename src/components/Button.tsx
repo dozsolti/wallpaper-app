@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { colors } from "../utils/colors";
+import { useStoreState } from "../store/store";
 import { commonStyles } from "../utils/commonStyles";
 
 type Props = {
@@ -19,6 +19,8 @@ const Button: React.FC<Props> = ({
   onPress = undefined,
   textStyle = {},
 }) => {
+  const colors = useStoreState((state) => state.colors);
+
   const backgroundColor = useMemo(() => {
     if (disabled) {
       return colors.darkerGray;
@@ -30,20 +32,12 @@ const Button: React.FC<Props> = ({
       return "transparent";
     }
     return colors.primary;
-  }, [disabled, type]);
+  }, [colors.darkerGray, colors.primary, colors.secondary, disabled, type]);
 
-  const textColor = useMemo(() => {
-    if (disabled) {
-      return colors.darkestGray;
-    }
-    if (type === "secondary") {
-      return colors.background;
-    }
-    if (type === "text") {
-      return colors.black;
-    }
-    return colors.background;
-  }, [disabled, type]);
+  const textColor = useMemo(
+    () => (disabled ? colors.darkestGray : colors.white),
+    [colors.darkestGray, colors.white, disabled]
+  );
 
   return (
     <TouchableOpacity

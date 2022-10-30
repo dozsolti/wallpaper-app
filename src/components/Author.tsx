@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, TouchableOpacity, Linking } from "react-native";
+import { TouchableOpacity, Linking } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
 import { useTranslation } from "react-i18next";
+import { useStoreState } from "../store/store";
+import Text from "./Text";
 
 type Props = {
   name: string | undefined;
@@ -22,6 +23,8 @@ const Author: React.FC<Props> = ({
   textStyle = {},
 }) => {
   const { t } = useTranslation();
+  const colors = useStoreState((state) => state.colors);
+
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -36,7 +39,7 @@ const Author: React.FC<Props> = ({
         numberOfLines={disabled ? 1 : undefined}
         style={[
           commonStyles.heading3,
-          { color: colors.background },
+          { color: colors.white },
           textStyle,
           { lineHeight: undefined },
         ]}

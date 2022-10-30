@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Input from "../components/Input";
 import Thumbnail from "../components/Thumbnail";
@@ -10,6 +10,7 @@ import { SEARCH_RESULT_COUNT } from "../utils/constants";
 import { useFocusEffect } from "@react-navigation/native";
 import { splitArrayInChuncks } from "../utils/formatter";
 import { useTranslation } from "react-i18next";
+import Text from "../components/Text";
 
 const renderItem = ({ item, index }: { item: Photo[]; index: number }) => {
   if (!item) {

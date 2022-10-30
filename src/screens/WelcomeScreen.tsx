@@ -7,6 +7,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 import LanguagePicker from "../components/LanguagePicker";
 import { useTranslation } from "react-i18next";
+import ThemeToggle from "../components/ThemeToggle";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -43,8 +44,10 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
           commonStyles.paddingHorizontal4,
         ]}
       >
+        <ThemeToggle />
         <LanguagePicker />
         <Button
+          type="secondary"
           text={t(`common.${isScrollDone ? "start" : "continue"}`)}
           // fluid
           onPress={() => {

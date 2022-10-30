@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { View, Pressable, ScrollView } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
+
 import { useStoreActions, useStoreState } from "../store/store";
 import CollectionBoxCreate from "./CollectionBoxCreate";
 import CollectionBox from "./CollectionBox";
 import { Photo } from "../models/Photo";
 import { Collection } from "../models/Collection";
 import { useTranslation } from "react-i18next";
+import Text from "./Text";
 
 type Props = {
   photo: Photo;
@@ -16,6 +17,8 @@ type Props = {
 };
 const LikeModal: React.FC<Props> = ({ photo, visible = false, onClose }) => {
   const { t } = useTranslation();
+  const colors = useStoreState((state) => state.colors);
+
   const collectionsAsArray = useStoreState((state) => state.collectionsAsArray);
   const togglePhotoInCollection = useStoreActions(
     (actions) => actions.togglePhotoInCollection
@@ -52,7 +55,7 @@ const LikeModal: React.FC<Props> = ({ photo, visible = false, onClose }) => {
           commonStyles.fill,
         ]}
       >
-        <Text style={[commonStyles.heading3, { color: colors.background }]}>
+        <Text style={[commonStyles.heading3, { color: colors.white }]}>
           {t("common.saveInCollection")}
         </Text>
 

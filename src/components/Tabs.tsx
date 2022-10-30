@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { TouchableOpacity } from "react-native";
-import { colors } from "../utils/colors";
+import { useStoreState } from "../store/store";
+import Text from "./Text";
 
 type TabItemProps = {
   text: string;
@@ -11,6 +12,8 @@ type TabItemProps = {
 };
 
 const TabItem: React.FC<TabItemProps> = ({ text, isSelected, onSelect }) => {
+  const colors = useStoreState((state) => state.colors);
+
   return (
     <TouchableOpacity
       style={[
@@ -57,6 +60,8 @@ const Tabs: React.FC<Props> = ({
   onChange,
   containerStyle,
 }) => {
+  const colors = useStoreState((state) => state.colors);
+
   if (tabs.length === 0) {
     return null;
   }

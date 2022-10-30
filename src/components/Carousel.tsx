@@ -1,6 +1,7 @@
 import React, { forwardRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Text, View, Image } from "react-native";
+import { FlatList, View, Image } from "react-native";
+import Text from "../components/Text";
 import { commonStyles } from "../utils/commonStyles";
 import Bullet from "./Bullet";
 
@@ -12,7 +13,6 @@ type SlideType = {
 
 type renderItemProps = {
   item: SlideType;
-  index: number;
 };
 
 const renderItem: React.FC<renderItemProps> = ({ item }) => {

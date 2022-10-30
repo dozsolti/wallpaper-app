@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { Text, TextInput, TextInputProps } from "react-native";
+import { useStoreState } from "../store/store";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
 
 interface Props extends TextInputProps {
   value: string;
@@ -12,6 +12,8 @@ interface Props extends TextInputProps {
 }
 const Input: React.FC<Props> = forwardRef(
   ({ value, setValue, onSubmit, error, style, ...props }, ref: any) => {
+    const colors = useStoreState((state) => state.colors);
+
     return (
       <>
         <TextInput
@@ -20,6 +22,7 @@ const Input: React.FC<Props> = forwardRef(
           value={value}
           onChangeText={setValue}
           onSubmitEditing={onSubmit}
+          placeholderTextColor={colors.inputPlaceholder}
           style={[
             commonStyles.padding4,
             commonStyles.paddingHorizontal5,
@@ -27,10 +30,10 @@ const Input: React.FC<Props> = forwardRef(
             commonStyles.roundedSmall,
             commonStyles.width100,
             {
-              color: colors.black,
-              backgroundColor: colors.gray,
+              color: colors.text,
+              backgroundColor: colors.inputBackground,
               borderWidth: 1,
-              borderColor: colors.darkerGray,
+              borderColor: colors.text,
             },
             style,
           ]}

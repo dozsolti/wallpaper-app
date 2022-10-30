@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Chip from "../components/Chip";
 import Button from "../components/Button";
@@ -7,6 +7,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Interest } from "../models/Interest";
 import { useStoreActions } from "../store/store";
 import { useTranslation } from "react-i18next";
+import Text from "../components/Text";
 
 type Props = {
   navigation: StackNavigationProp<any>;

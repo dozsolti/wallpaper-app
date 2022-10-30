@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
+
 import { Collection } from "../models/Collection";
+import { useStoreState } from "../store/store";
+import Text from "./Text";
 
 type Props = {
   collection: Collection;
@@ -14,6 +16,8 @@ const CollectionBox: React.FC<Props> = ({
   active = false,
   onPress,
 }) => {
+  const colors = useStoreState((state) => state.colors);
+
   return (
     <TouchableOpacity
       style={[
@@ -45,7 +49,7 @@ const CollectionBox: React.FC<Props> = ({
             { borderWidth: 2, borderColor: colors.darkestGray },
           ]}
         >
-          <Text style={[commonStyles.heading1, { color: colors.background }]}>
+          <Text style={[commonStyles.heading1, { color: colors.white }]}>
             {collection.name[0].toUpperCase()}
           </Text>
         </View>
@@ -53,7 +57,7 @@ const CollectionBox: React.FC<Props> = ({
       <Text
         style={[
           commonStyles.heading3,
-          { color: colors.background },
+          { color: colors.white },
           active ? commonStyles.underline : {},
         ]}
       >

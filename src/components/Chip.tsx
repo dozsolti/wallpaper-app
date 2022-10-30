@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
-import { colors } from "../utils/colors";
+import { useStoreState } from "../store/store";
+
 import { commonStyles } from "../utils/commonStyles";
 
 type Props = {
@@ -16,6 +17,8 @@ const Chip: React.FC<Props> = ({
   active = false,
   onPress = undefined,
 }) => {
+  const colors = useStoreState((state) => state.colors);
+
   return (
     <TouchableOpacity
       style={[
@@ -32,7 +35,7 @@ const Chip: React.FC<Props> = ({
     >
       <Text
         style={{
-          color: active ? colors.background : colors.black,
+          color: active ? colors.white : colors.text,
         }}
       >
         {text}

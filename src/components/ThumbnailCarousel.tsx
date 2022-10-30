@@ -1,11 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { Photo } from "../models/Photo";
-import { colors } from "../utils/colors";
+import { useStoreState } from "../store/store";
 import { commonStyles } from "../utils/commonStyles";
 import EmptyState from "./EmptyState";
 import Thumbnail from "./Thumbnail";
+import Text from "./Text";
 
 type Props = {
   title: string;
@@ -27,6 +28,8 @@ const ThumbnailCarousel: React.FC<Props> = ({
   style = {},
 }) => {
   const { t } = useTranslation();
+  const colors = useStoreState((state) => state.colors);
+
   return (
     <View
       style={[commonStyles.screenContainer, commonStyles.marginBottom4, style]}

@@ -1,19 +1,22 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { useStoreActions, useStoreState } from "../store/store";
 import Input from "./Input";
 import { Collection } from "../models/Collection";
 import toSlugCase from "to-slug-case";
 import { useTranslation } from "react-i18next";
+import Text from "./Text";
 
 type Props = {
   onSubmit: (collection: Collection) => void;
 };
 const CollectionBoxCreate: React.FC<Props> = ({ onSubmit }) => {
   const { t } = useTranslation();
+  const colors = useStoreState((state) => state.colors);
+
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isAddMode, setIsAddMode] = useState(false);
@@ -78,7 +81,7 @@ const CollectionBoxCreate: React.FC<Props> = ({ onSubmit }) => {
           autoFocus
         />
       ) : (
-        <Text style={[commonStyles.heading3, { color: colors.background }]}>
+        <Text style={[commonStyles.heading3, { color: colors.white }]}>
           {t("common.add")}
         </Text>
       )}

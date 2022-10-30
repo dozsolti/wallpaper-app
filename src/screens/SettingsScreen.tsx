@@ -1,17 +1,20 @@
 import React from "react";
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { colors } from "../utils/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import LanguagePicker from "../components/LanguagePicker";
 import { useTranslation } from "react-i18next";
+import { useStoreState } from "../store/store";
+import Text from "../components/Text";
 
 type Props = {
   navigation: StackNavigationProp<any>;
 };
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation();
+  const colors = useStoreState((state) => state.colors);
+
   return (
     <ScrollView
       overScrollMode="never"
@@ -48,13 +51,13 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
               commonStyles.paddingHorizontal5,
               commonStyles.marginBottom6,
               commonStyles.paddingVertical4,
-              { backgroundColor: colors.gray },
+              { backgroundColor: colors.backgroundHighlighted },
             ]}
           >
             <Text style={[commonStyles.text]}>
               {t("screens.settings.manageInterests")}
             </Text>
-            <MaterialIcons name="arrow-right" size={24} color="black" />
+            <MaterialIcons name="arrow-right" size={24} color={colors.text} />
           </TouchableOpacity>
 
           <View>
@@ -70,7 +73,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
             commonStyles.text,
             commonStyles.paddingHorizontal4,
             {
-              color: colors.background,
+              color: colors.white,
               backgroundColor: colors.danger,
             },
           ]}

@@ -8,25 +8,29 @@ import {
 } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { SharedElement } from "react-navigation-shared-element";
 import Author from "./Author";
 import { Photo } from "../models/Photo";
+import { useStoreState } from "../store/store";
 
-const LoadingIndicator = () => (
-  <View
-    style={[
-      commonStyles.container,
-      commonStyles.center,
-      commonStyles.roundedSmall,
-      { backgroundColor: colors.gray },
-    ]}
-  >
-    <ActivityIndicator size={"large"} color={colors.black} animating={true} />
-  </View>
-);
+const LoadingIndicator = () => {
+  const colors = useStoreState((state) => state.colors);
+
+  return (
+    <View
+      style={[
+        commonStyles.container,
+        commonStyles.center,
+        commonStyles.roundedSmall,
+        { backgroundColor: colors.backgroundHighlighted },
+      ]}
+    >
+      <ActivityIndicator size={"large"} color={colors.black} animating={true} />
+    </View>
+  );
+};
 type Props = {
   photo?: Photo;
   showAuthor?: boolean;
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   author: {
-    color: colors.background,
+    // todo color: colors.background,
     flex: 1,
   },
 });

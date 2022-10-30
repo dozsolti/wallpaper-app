@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { commonStyles } from "../utils/commonStyles";
 import LanguageService from "../services/LanguageService";
 import { Picker } from "@react-native-picker/picker";
-import { colors } from "../utils/colors";
+import { useStoreState } from "../store/store";
 
 const LanguagePicker = () => {
+  const colors = useStoreState((state) => state.colors);
+
   const [selectedLanguage, setSelectedLanguage] = useState(
     LanguageService.currentLanguage
   );
@@ -23,7 +25,7 @@ const LanguagePicker = () => {
       style={[
         commonStyles.bordered,
         commonStyles.roundedSmall,
-        { backgroundColor: colors.gray },
+        { backgroundColor: colors.backgroundHighlighted, color: colors.text },
       ]}
     >
       {LanguageService.languages.map((lang) => (

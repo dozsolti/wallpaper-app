@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import ThumbnailCarousel from "../components/ThumbnailCarousel";
 import { commonStyles } from "../utils/commonStyles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useStoreState } from "../store/store";
 import { useTranslation } from "react-i18next";
+import Text from "../components/Text";
 
 type Props = {
   navigation: StackNavigationProp<any>;

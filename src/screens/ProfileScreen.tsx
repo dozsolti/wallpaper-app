@@ -10,13 +10,13 @@ import {
   ImageBackground,
 } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Tabs from "../components/Tabs";
 import { ScrollView } from "react-native-gesture-handler";
 import { ListPhotos } from "../components/ListPhotos";
 import { ListCollections } from "../components/ListCollections";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useStoreState } from "../store/store";
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -24,6 +24,7 @@ type Props = {
 
 const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const colors = useStoreState((state) => state.colors);
 
   return (
     <ScrollView nestedScrollEnabled={true}>

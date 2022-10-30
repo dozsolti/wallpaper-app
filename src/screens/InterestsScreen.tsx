@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   View,
-  Text,
   Image,
   FlatList,
   ToastAndroid,
   TouchableOpacity,
 } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
-import { colors } from "../utils/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LikeModal from "../components/LikeModal";
@@ -21,6 +19,9 @@ import { INTEREST_RESULT_COUNT } from "../utils/constants";
 import { useStoreState } from "../store/store";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 import { useTranslation } from "react-i18next";
+import Text from "../components/Text";
+import { downloadFile } from "../utils/file";
+import Toast from "react-native-simple-toast";
 
 const renderItem = ({ item }: { item: Photo }) => {
   return (
@@ -41,6 +42,8 @@ type Props = {
 };
 const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
   const { t } = useTranslation();
+  const colors = useStoreState((state) => state.colors);
+
   const pageNumber = useRef(0);
   const [photos, setPhotos] = useState<Photo[]>([]);
 
@@ -72,6 +75,20 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
     );
     setPhotos((v) => [...v, ...nextPhotos]);
   };
+
+  const download = async () => {
+    try {
+      const fileURL = await downloadFile(photos[currentIndex].url);
+      if (!fileURL) {
+        throw t("errors.missing.url");
+      }
+      Toast.show(t("common.downloadSucceeded"));
+    } catch (err) {
+      console.log(err);
+      Toast.show(JSON.stringify(err), Toast.LONG);
+    }
+  };
+
   if (!photos || photos.length === 0) {
     return null;
   }
@@ -111,7 +128,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
           <View style={[commonStyles.row, commonStyles.container]}>
             <Text
               numberOfLines={1}
-              style={[commonStyles.heading3, { color: colors.background }]}
+              style={[commonStyles.heading3, { color: colors.white }]}
             >
               {interest.name}
             </Text>
@@ -170,7 +187,7 @@ const InterestsScreen: React.FC<Props> = ({ navigation, route }) => {
               color="white"
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsModalVisible(true)}>
+          <TouchableOpacity onPress={download}>
             <MaterialCommunityIcons
               name="arrow-collapse-down"
               size={28}
