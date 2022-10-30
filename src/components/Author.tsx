@@ -8,10 +8,8 @@ import Text from "./Text";
 type Props = {
   name: string | undefined;
   license: string;
-  profilePicture?: string;
   disabled?: boolean;
   containerStyle?: any;
-  avatarStyle?: any;
   textStyle?: any;
 };
 

@@ -82,10 +82,6 @@ const Thumbnail: React.FC<Props> = ({
                   commonStyles.marginLeft4,
                   commonStyles.marginBottom2,
                 ]}
-                avatarStyle={[
-                  commonStyles.marginRight4,
-                  commonStyles.square(22),
-                ]}
                 textStyle={[commonStyles.text, commonStyles.fill]}
               />
             </>

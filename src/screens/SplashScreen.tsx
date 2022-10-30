@@ -52,7 +52,7 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
       [
         {
           text: t("common.cancel"),
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => {},
           style: "cancel",
         },
         {
