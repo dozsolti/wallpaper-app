@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import * as Localization from "expo-localization";
 import en from "../translations/en.json";
-import ja from "../translations/ja.json";
+import hu from "../translations/hu.json";
 import StorageService, { STORAGE_KEYS } from "./StorageService";
 
 class LanguageService {
@@ -11,7 +11,7 @@ class LanguageService {
       compatibilityJSON: "v3",
       resources: {
         en,
-        ja,
+        hu,
       },
       lng:
         (await StorageService.getItem(STORAGE_KEYS.LANGUAGE)) ||

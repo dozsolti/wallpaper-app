@@ -38,9 +38,9 @@
     "components": {
       "welcomeCarousel": {
         "slides": [
-          { "title": "Welcome", "description": "abc" },
-          { "title": "We don't collect", "description": "abc" },
-          { "title": "Let's start!", "description": "abc" }
+          { "title": "Welcome", "description": "To the world's best wallpaper application\nbased on thounds of free photos." },
+          { "title": "We don't collect", "description": "No ads.\nNo data collected.\nJust find a new images and download.\nSimple like that!" },
+          { "title": "Let's start!", "description": "No better time to start than now." }
         ]
       },
       "emptyState": {

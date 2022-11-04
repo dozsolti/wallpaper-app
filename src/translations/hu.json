@@ -1,0 +1,101 @@
+{
+  "translation": {
+    "languageName": "Magyar",
+    "title": "Wallpapers",
+    "common": {
+      "license": "Licenc",
+      "start": "Start",
+      "continue": "Folytatás",
+      "ok": "Oké",
+      "cancel": "Mégse",
+      "noInterests": "Nincs érdeklődés",
+      "seeAll": "Minden",
+      "loading": "Betöltés",
+      "add": "Hozzáadás",
+      "liked": "Tetszik",
+      "saveInCollection": "Mentés a gyűjteménybe",
+      "permissionRequired": "Engedély szükséges",
+      "downloadSucceeded": "A letöltés sikerült.",
+      "typeAnything": "Keres bármit"
+    },
+    "errors": {
+      "missing": {
+        "url": "Hiányzó URL"
+      },
+      "empty": {
+        "name": "A név nem lehet üres!"
+      },
+      "exists": {
+        "collection": "A gyűjtemény neve már létezik."
+      }
+    },
+    "modals": {
+      "exit": {
+        "title": "Kilép az alkalmazásból?",
+        "description": "Biztosan ki akar lépni az alkalmazásból?"
+      }
+    },
+    "components": {
+      "welcomeCarousel": {
+        "slides": [
+          {
+            "title": "Üdvözöljük",
+            "description": "A világ legjobb háttérkép-alkalmazásához\ntöbbnyi ingyenes fotó alapján"
+          },
+          {
+            "title": "Nem gyűjtünk semmit",
+            "description": "Nincsenek hirdetések.\nNincs adatgyűjtés.\nCsak keressen egy új képet, és töltse le.\nIlyen egyszerű!"
+          },
+          {
+            "title": "Kezdjük!",
+            "description": "Nincs jobb idő a kezdéshez, mint most."
+          }
+        ]
+      },
+      "emptyState": {
+        "defaultText": "Ezúttal nincs mit mutatni"
+      }
+    },
+    "screens": {
+      "feed": {
+        "name": "Kezdőlap"
+      },
+      "search": {
+        "name": "Keresés"
+      },
+      "library": {
+        "name": "Könyvtár"
+      },
+      "settings": {
+        "name": "Beállítások",
+        "manageInterests": "Érdeklődési körök kezelése",
+        "selectLanguage": "Nyelv kiválasztása",
+        "footer": "Jogi nyilatkozat: \"Minden fotó a Flickr-ről származik, és Creative Commons licenccel rendelkezik.\""
+      },
+      "selectInterests": {
+        "title": "Az Ön érdeklődési köre",
+        "description": "Kérjük, válassza ki érdeklődési körét, hogy csak a releváns tartalmat tudjuk megjeleníteni."
+      }
+    },
+    "interests": {
+      "art": "Művészet",
+      "business": "Business",
+      "culture": "Kultúra",
+      "education": "Oktatás",
+      "environment": "környezet",
+      "health": "Egészség",
+      "humanRights": "Emberi jogok",
+      "humanitarian": "Humanitárius",
+      "humanities": "Humán tudományok",
+      "international": "Nemzetközi",
+      "law": "Jog",
+      "politics": "Politika",
+      "science": "Tudomány",
+      "social": "Társadalmi",
+      "sport": "Sport",
+      "technology": "Technológia",
+      "transport": "Szállítás",
+      "war": "Háború"
+    }
+  }
+}
