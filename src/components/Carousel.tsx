@@ -30,7 +30,7 @@ const renderItem: React.FC<renderItemProps> = ({ item }) => {
         resizeMode="contain"
         style={[commonStyles.square(250)]}
       />
-      <Text style={[commonStyles.heading3, commonStyles.marginTop6]}>
+      <Text style={[commonStyles.heading1, commonStyles.marginTop6]}>
         {item.title}
       </Text>
       <Text

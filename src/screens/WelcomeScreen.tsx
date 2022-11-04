@@ -36,20 +36,14 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={[commonStyles.container]}>
       <Carousel ref={list} listProps={listProps} currentIndex={currentIndex} />
-      <View
-        style={[
-          commonStyles.container,
-          commonStyles.stack,
-          commonStyles.spaceEvenly,
-          commonStyles.paddingHorizontal4,
-        ]}
-      >
+      <View style={[commonStyles.stack, commonStyles.paddingHorizontal4]}>
+        <View style={[commonStyles.marginTop5]} />
         <ThemeToggle />
         <LanguagePicker />
+        <View style={[commonStyles.marginTop5]} />
         <Button
           type="secondary"
           text={t(`common.${isScrollDone ? "start" : "continue"}`)}
-          // fluid
           onPress={() => {
             if (isScrollDone) {
               navigation.navigate("SelectInterests");

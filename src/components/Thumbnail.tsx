@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   author: {
-    // todo color: colors.background,
     flex: 1,
   },
 });

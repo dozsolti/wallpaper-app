@@ -25,8 +25,7 @@ const SplashScreen: React.FC<Props> = ({ navigation }) => {
   }, [loadSavedCollections, loadSavedInterests]);
 
   const goNext = useCallback(async () => {
-    await loadData();
-    const wasData = false;
+    const wasData = await loadData();
     if (wasData) {
       navigation.reset({
         index: 0,
