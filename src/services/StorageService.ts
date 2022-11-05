@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const STORAGE_KEYS = {
   INTERESTS: "INTERESTS",
   COLLECTIONS: "COLLECTIONS",
-  LANGUAGE: "LANGUAGE"
+  LANGUAGE: "LANGUAGE",
 };
 
 class StorageService {
