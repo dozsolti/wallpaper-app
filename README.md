@@ -15,7 +15,9 @@ My new free Wallpaper App allows you to search through thousands of high-quality
 ## :bookmark_tabs: Table of contents
 
 - [Overview](#scroll-overview)
+- [Screenshots](#camera-screenshots)
 - [Features](#sparkles-features)
+- [Demo](#dvd-demo)
 - [Installation and usage](#floppy_disk-installation-and-usage)
   - [Run](#run)
   - [Linting](#linting)
@@ -27,6 +29,15 @@ My new free Wallpaper App allows you to search through thousands of high-quality
 ## :scroll: Overview
 A react native application using Expo and Lorem Flickr API.
 
+## :camera: Screenshots
+
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+<img src="https://user-images.githubusercontent.com/17215747/200122073-c09cccd6-f5f3-4b48-a86b-06a2b5f98b32.jpg" alt="welcome screen" width="200"/>
+<img src="https://user-images.githubusercontent.com/17215747/200122085-b8918b74-74c7-42d3-863e-660fe0106ba0.jpg" alt="feed screen" width="200"/>
+<img src="https://user-images.githubusercontent.com/17215747/200122423-2788f413-0043-4d61-943a-af6c4a60c074.jpg" alt="photo screen" width="200"/>
+<img src="https://user-images.githubusercontent.com/17215747/200122427-bc8d4548-35d5-4c8d-8bc5-c5920f2135e4.jpg" alt="library screen" width="200"/>
+</div>
+
 
 ## :sparkles: Features
 - 🌙 Automatic Dark/Light theme
@@ -36,6 +47,11 @@ A react native application using Expo and Lorem Flickr API.
 - Cross platform
     - Android and iOS ready via Expo Go
 - ESLinted
+
+
+## :dvd: Demo
+
+Check out the online demo [here](https://snack.expo.dev/@dozsolti/wallpaper-app?platform=android). Login not required.
 
 ## :floppy_disk: Installation and usage
 
@@ -97,7 +113,7 @@ $ npm run lint
 
 ## :memo: License
 
-MIT @ [wallpaper-app]()
+MIT @ [wallpaper-app](https://github.com/dozsolti/wallpaper-app/blob/main/LICENSE)
 
 ## Author
 Created by [Domotor Zsolt](https://www.linkedin.com/in/zsolti-domotor-a39586b4/)
