@@ -28,6 +28,6 @@ const askForPermission = async () => {
 };
 const moveToGallery = async (uri: string) => {
   const asset = await MediaLibrary.createAssetAsync(uri);
-  MediaLibrary.createAlbumAsync("Downloads", asset);
+  MediaLibrary.createAlbumAsync("Downloads", asset, false);
   return asset.uri;
 };
