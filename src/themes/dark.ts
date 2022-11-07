@@ -13,7 +13,6 @@ export const dark = {
   darkerGray: "#fdfdfd",
   darkestGray: "#fdfdfd",
 
-  black: "#fdfdfd",
   white: "#fdfdfd",
 
   danger: "#C4002B",

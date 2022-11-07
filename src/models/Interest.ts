@@ -1,12 +1,14 @@
-import toSlugCase from "to-slug-case";
+import LanguageService from "../services/LanguageService";
 
 export class Interest {
   id: string;
-  name: string;
 
-  constructor(name: string) {
-    this.id = toSlugCase(name);
-    this.name = name;
+  constructor(id: string) {
+    this.id = id;
+  }
+
+  get name() {
+    return LanguageService.t("interests." + this.id);
   }
 
   static SORT_ALPHABETICAL(a: Interest, b: Interest) {

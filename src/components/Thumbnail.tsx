@@ -27,7 +27,7 @@ const LoadingIndicator = () => {
         { backgroundColor: colors.backgroundHighlighted },
       ]}
     >
-      <ActivityIndicator size={"large"} color={colors.black} animating={true} />
+      <ActivityIndicator size={"large"} color={colors.white} animating={true} />
     </View>
   );
 };
