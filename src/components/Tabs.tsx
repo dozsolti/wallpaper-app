@@ -60,20 +60,13 @@ const Tabs: React.FC<Props> = ({
   onChange,
   containerStyle,
 }) => {
-  const colors = useStoreState((state) => state.colors);
-
   if (tabs.length === 0) {
     return null;
   }
 
   return (
     <View style={[commonStyles.row, containerStyle]}>
-      <View
-        style={[
-          commonStyles.absoluteFill,
-          { backgroundColor: colors.black, opacity: 0.4 },
-        ]}
-      />
+      <View style={[commonStyles.absoluteFill, { opacity: 0.4 }]} />
       {tabs.map((tab, i) => (
         <TabItem
           key={"tab-" + i}
