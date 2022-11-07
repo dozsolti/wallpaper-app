@@ -14,7 +14,7 @@ class LanguageService {
         hu,
       },
       lng:
-        (await StorageService.getItem(STORAGE_KEYS.LANGUAGE)) ||
+        (await StorageService.getItem<string | null>(STORAGE_KEYS.LANGUAGE)) ||
         Localization.locale ||
         "en",
       interpolation: {

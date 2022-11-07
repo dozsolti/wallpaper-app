@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { View, FlatList, Image, TouchableOpacity } from "react-native";
 import { commonStyles } from "../utils/commonStyles";
 import Button from "../components/Button";
@@ -78,6 +78,18 @@ const renderItem = ({
     </>
   </TouchableOpacity>
 );
+const ALL_INTERESTS = [
+  new Interest("art"),
+  new Interest("business"),
+  new Interest("education"),
+  new Interest("health"),
+  new Interest("international"),
+  new Interest("law"),
+  new Interest("science"),
+  new Interest("sport"),
+  new Interest("technology"),
+  new Interest("transport"),
+];
 
 type Props = {
   navigation: StackNavigationProp<any>;
@@ -88,30 +100,6 @@ const SelectInterestsScreen: React.FC<Props> = ({ navigation, route }) => {
   const colors = useStoreState((state) => state.colors);
 
   const { t } = useTranslation();
-
-  const ALL_INTERESTS = useMemo(
-    () => [
-      new Interest(t("interests.art")),
-      new Interest(t("interests.business")),
-      new Interest(t("interests.culture")),
-      new Interest(t("interests.education")),
-      new Interest(t("interests.environment")),
-      new Interest(t("interests.health")),
-      new Interest(t("interests.humanRights")),
-      new Interest(t("interests.humanitarian")),
-      new Interest(t("interests.humanities")),
-      new Interest(t("interests.international")),
-      new Interest(t("interests.law")),
-      new Interest(t("interests.politics")),
-      new Interest(t("interests.science")),
-      new Interest(t("interests.social")),
-      new Interest(t("interests.sport")),
-      new Interest(t("interests.technology")),
-      new Interest(t("interests.transport")),
-      new Interest(t("interests.war")),
-    ],
-    [t]
-  );
 
   const [selectedInterests, setSelectedInterests] = React.useState<Interest[]>([
     ALL_INTERESTS[0],

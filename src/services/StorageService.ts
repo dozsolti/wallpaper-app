@@ -7,7 +7,7 @@ export const STORAGE_KEYS = {
 };
 
 class StorageService {
-  async getItem(key: string, defaultValue: any = null) {
+  async getItem<T>(key: string, defaultValue: any = null): Promise<T> {
     const result = await AsyncStorage.getItem(key);
     if (result == null || result.length === 0) {
       return defaultValue;

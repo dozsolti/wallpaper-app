@@ -65,10 +65,11 @@ const store = createStore<StoreModel>({
     await StorageService.setItem(STORAGE_KEYS.INTERESTS, selectedInterests);
   }),
   loadSavedInterests: thunk(async (actions) => {
-    const savedInterests = await StorageService.getItem(
+    const savedInterests = await StorageService.getItem<Interest[]>(
       STORAGE_KEYS.INTERESTS,
       []
     );
+
     actions._setInterests(savedInterests);
     return savedInterests.length !== 0;
   }),
@@ -85,11 +86,11 @@ const store = createStore<StoreModel>({
     await StorageService.setItem(STORAGE_KEYS.COLLECTIONS, collections);
   }),
   loadSavedCollections: thunk(async (actions) => {
-    let savedCollections = await StorageService.getItem(
+    let savedCollections = await StorageService.getItem<CollectionsType>(
       STORAGE_KEYS.COLLECTIONS,
       {
         liked: new Collection({
-          name: LanguageService.t("common.liked"),
+          name: "Liked",
           createdAt: 99999999999999,
           deletable: false,
         }), // create at Infinity because it has to be first in the lists.
@@ -109,6 +110,8 @@ const store = createStore<StoreModel>({
         {}
       );
     }
+
+    savedCollections.liked.name = LanguageService.t("common.liked");
 
     actions._setCollections(savedCollections);
   }),
